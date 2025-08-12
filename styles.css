@@ -9,6 +9,7 @@ body {
     line-height: 1.6;
     color: #333;
     background-color: #fff;
+    overflow-x: hidden;
 }
 
 .navbar {
@@ -123,6 +124,8 @@ body.dark-header .phone-link:hover {
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
     transition: all 0.3s ease;
     height: 100%;
+    width: 100%;
+    display: block;
 }
 
 .property-card {
@@ -744,7 +747,7 @@ body.dark-header .phone-link:hover {
     }
 }
 
-@media (max-width: 576px) {
+@media (max-width: 767px) {
     .footer-logo {
         font-size: 1.75rem;
     }
@@ -756,6 +759,7 @@ body.dark-header .phone-link:hover {
     
     .property-card {
         margin-bottom: 2rem;
+        max-width: 100%;
     }
     
     .property-info {
@@ -767,12 +771,13 @@ body.dark-header .phone-link:hover {
     }
     
     .property-image {
-        height: 250px;
+        height: 220px;
     }
     
     .container {
         padding-left: 15px;
         padding-right: 15px;
+        max-width: 100%;
     }
     
     .main-content {
@@ -780,7 +785,7 @@ body.dark-header .phone-link:hover {
     }
     
     .properties-section {
-        padding: 1rem 0;
+        padding: 1.5rem 0;
     }
     
     .navbar-nav {
@@ -807,12 +812,62 @@ body.dark-header .phone-link:hover {
         box-shadow: none;
     }
     
-    .row.g-4 {
-        margin: 0 -0.5rem;
+    .row.g-3 {
+        margin: 0 -0.75rem;
     }
     
-    .row.g-4 > * {
-        padding: 0 0.5rem;
+    .row.g-3 > * {
+        padding: 0 0.75rem;
+        margin-bottom: 1.5rem;
+    }
+    
+    /* Force single column on mobile */
+    .col-12.col-md-6 {
+        flex: 0 0 100% !important;
+        max-width: 100% !important;
+        width: 100% !important;
+    }
+    
+    .row.g-3 .col-12 {
+        flex-basis: 100% !important;
+        max-width: 100% !important;
+    }
+}
+
+/* Additional mobile-first approach */
+@media (max-width: 576px) {
+    .property-image {
+        height: 200px;
+    }
+    
+    .page-title {
+        font-size: 1.5rem;
+    }
+    
+    .container {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+    
+    .properties-section {
+        padding: 1rem 0;
+    }
+    
+    /* Override Bootstrap grid completely on small mobile */
+    .row > [class*="col-"] {
+        flex: 0 0 100% !important;
+        max-width: 100% !important;
+        width: 100% !important;
         margin-bottom: 1rem;
+    }
+    
+    .row {
+        margin-left: -5px !important;
+        margin-right: -5px !important;
+    }
+    
+    .row > * {
+        padding-left: 5px !important;
+        padding-right: 5px !important;
     }
 }
