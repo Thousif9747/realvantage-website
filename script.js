@@ -46,26 +46,31 @@ function initDesktopSiteDetection() {
 }
 
 function detectDesktopSiteRequest(isMobileDevice, isTabletDevice, screenWidth, windowWidth) {
-    // Method 1: Large window width (desktop or desktop site requested)
-    if (windowWidth >= 1200) return true;
+    // Only apply desktop layout in very specific cases to avoid interfering with responsive design
     
-    // Method 2: Medium-large window (tablet landscape or desktop site)
-    if (windowWidth >= 992 && windowWidth < 1200) {
-        return !isMobileDevice || (isMobileDevice && windowWidth > screenWidth * 0.8);
+    // Method 1: Actual desktop/laptop (not mobile device)
+    if (!isMobileDevice && !isTabletDevice && windowWidth >= 992) {
+        return true;
     }
     
-    // Method 3: Mobile device with unusually wide viewport (desktop site requested)
-    if (isMobileDevice && windowWidth >= 980) return true;
+    // Method 2: Mobile device with VERY wide viewport (clear desktop site request)
+    // This happens when user clicks "Desktop site" in mobile browser
+    if (isMobileDevice && windowWidth >= 1100) {
+        return true;
+    }
     
-    // Method 4: Tablet with wide viewport
-    if (isTabletDevice && windowWidth >= 768) return true;
+    // Method 3: Tablet in landscape with desktop request indicators
+    if (isTabletDevice && windowWidth >= 1000) {
+        return true;
+    }
     
-    // Method 5: Check if viewport was overridden by browser desktop site
-    if (isMobileDevice && window.outerWidth >= 1000) return true;
+    // Method 4: Mobile device where viewport is much wider than expected for the screen
+    // This indicates browser is forcing desktop viewport
+    if (isMobileDevice && screenWidth > 0 && screenWidth < 600 && windowWidth >= 980) {
+        return true;
+    }
     
-    // Method 6: Screen vs window ratio suggests desktop mode
-    if (isMobileDevice && screenWidth > 0 && windowWidth / screenWidth > 0.75) return true;
-    
+    // For all other cases, use responsive design
     return false;
 }
 
