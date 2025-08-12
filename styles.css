@@ -10,9 +10,201 @@ body {
     color: #333;
     background-color: #fff;
     overflow-x: hidden;
+    transition: all 0.3s ease;
 }
 
-/* Force desktop layout when desktop site is requested */
+/* Smooth transitions for responsive changes */
+.container, .container-md, .row, .col-12, .col-md-6 {
+    transition: all 0.3s ease;
+}
+
+.navbar, .navbar-collapse, .navbar-nav, .property-card {
+    transition: all 0.3s ease;
+}
+
+/* Performance optimizations */
+.property-image img {
+    will-change: transform;
+    backface-visibility: hidden;
+}
+
+.property-card {
+    will-change: transform;
+    backface-visibility: hidden;
+}
+
+/* Smooth scrolling */
+html {
+    scroll-behavior: smooth;
+}
+
+/* ===========================
+   RESPONSIVE DESIGN FOR ALL DEVICES
+   =========================== */
+
+/* Mobile First Base Styles (320px+) */
+.container, .container-md {
+    width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+/* Small Mobile (320px - 479px) */
+@media (max-width: 479px) {
+    .page-title {
+        font-size: 2rem !important;
+    }
+    
+    .property-image {
+        height: 200px;
+    }
+    
+    .navbar {
+        padding: 0.5rem 0;
+    }
+    
+    .properties-section {
+        padding: 2rem 0;
+    }
+    
+    .footer-logo {
+        font-size: 8rem;
+    }
+}
+
+/* Mobile (480px - 767px) */
+@media (min-width: 480px) and (max-width: 767px) {
+    .page-title {
+        font-size: 2.5rem !important;
+    }
+    
+    .property-image {
+        height: 250px;
+    }
+    
+    .properties-section {
+        padding: 3rem 0;
+    }
+    
+    .footer-logo {
+        font-size: 10rem;
+    }
+}
+
+/* Tablet (768px - 991px) */
+@media (min-width: 768px) and (max-width: 991px) {
+    .container, .container-md {
+        max-width: 750px;
+    }
+    
+    .col-md-6 {
+        flex: 0 0 50%;
+        max-width: 50%;
+    }
+    
+    .page-title {
+        font-size: 2.8rem;
+    }
+    
+    .property-image {
+        height: 280px;
+    }
+    
+    .navbar-nav .nav-link {
+        margin: 0 0.3rem;
+        padding: 0.4rem 0.8rem;
+    }
+    
+    .footer-social {
+        justify-content: flex-end;
+    }
+    
+    .footer-logo {
+        font-size: 11rem;
+    }
+}
+
+/* Desktop (992px - 1199px) */
+@media (min-width: 992px) and (max-width: 1199px) {
+    .container, .container-md {
+        max-width: 970px;
+    }
+    
+    .col-md-6 {
+        flex: 0 0 50%;
+        max-width: 50%;
+    }
+    
+    .navbar-collapse {
+        display: flex !important;
+    }
+    
+    .navbar-toggler {
+        display: none;
+    }
+    
+    .navbar-nav {
+        flex-direction: row;
+        margin: auto;
+    }
+    
+    .page-title {
+        font-size: 3rem;
+    }
+    
+    .property-image {
+        height: 300px;
+    }
+    
+    .properties-section {
+        padding: 4rem 0;
+    }
+    
+    .footer-logo {
+        font-size: 12rem;
+    }
+}
+
+/* Large Desktop (1200px+) */
+@media (min-width: 1200px) {
+    .container, .container-md {
+        max-width: 1200px;
+    }
+    
+    .col-md-6 {
+        flex: 0 0 50%;
+        max-width: 50%;
+    }
+    
+    .page-title {
+        font-size: 3.5rem;
+    }
+    
+    .property-image {
+        height: 350px;
+    }
+    
+    .properties-section {
+        padding: 5rem 0;
+    }
+    
+    .footer-logo {
+        font-size: 13rem;
+    }
+}
+
+/* ===========================
+   DESKTOP SITE LAYOUT OVERRIDE
+   (When "Desktop site" is requested on mobile)
+   =========================== */
+
+body.force-desktop-layout {
+    min-width: 1200px !important;
+    overflow-x: auto !important;
+}
+
 body.force-desktop-layout .navbar-toggler {
     display: none !important;
 }
@@ -32,7 +224,8 @@ body.force-desktop-layout .navbar-text {
     display: block !important;
 }
 
-body.force-desktop-layout .col-12.col-md-6 {
+body.force-desktop-layout .col-12,
+body.force-desktop-layout .col-md-6 {
     flex: 0 0 50% !important;
     max-width: 50% !important;
     width: 50% !important;
@@ -43,7 +236,7 @@ body.force-desktop-layout .main-content {
 }
 
 body.force-desktop-layout .page-title {
-    font-size: 3rem !important;
+    font-size: 3.5rem !important;
 }
 
 body.force-desktop-layout .property-card {
@@ -93,7 +286,7 @@ body.force-desktop-layout .footer-legal {
 
 /* Ensure proper spacing in desktop mode */
 body.force-desktop-layout .properties-section {
-    padding: 4rem 0 !important;
+    padding: 5rem 0 !important;
 }
 
 body.force-desktop-layout .footer {
@@ -108,13 +301,17 @@ body.force-desktop-layout .g-3 {
 
 /* Ensure images display properly in desktop mode */
 body.force-desktop-layout .property-image {
-    height: 300px !important;
+    height: 350px !important;
 }
 
 body.force-desktop-layout .property-image img {
     width: 100% !important;
     height: 100% !important;
     object-fit: cover !important;
+}
+
+body.force-desktop-layout .footer-logo {
+    font-size: 13rem !important;
 }
 
 .navbar {
@@ -204,9 +401,55 @@ body.dark-header .phone-link:hover {
     min-height: calc(100vh - 80px);
 }
 
+/* Enhanced Mobile Responsiveness */
 @media (max-width: 991px) {
     .main-content {
         margin-top: 90px;
+    }
+    
+    .navbar-collapse {
+        background-color: rgba(255, 255, 255, 0.98);
+        border-radius: 8px;
+        margin-top: 1rem;
+        padding: 1rem;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    }
+    
+    .navbar-nav .nav-link {
+        padding: 0.75rem 1rem;
+        border-bottom: 1px solid #f0f0f0;
+        text-align: center;
+    }
+    
+    .navbar-nav .nav-link:last-child {
+        border-bottom: none;
+    }
+    
+    .navbar-text {
+        text-align: center;
+        margin-top: 1rem;
+        padding-top: 1rem;
+        border-top: 1px solid #f0f0f0;
+    }
+    
+    .property-card {
+        margin-bottom: 2rem;
+    }
+    
+    /* Stack footer elements on mobile */
+    .footer-social {
+        justify-content: center !important;
+        margin-bottom: 1rem;
+    }
+    
+    .footer-legal {
+        justify-content: center !important;
+        text-align: center;
+    }
+    
+    .footer-legal a {
+        display: inline-block;
+        margin: 0.25rem 0.5rem;
     }
 }
 
