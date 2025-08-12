@@ -12,6 +12,160 @@ body {
     overflow-x: hidden;
 }
 
+/* Force desktop layout when desktop site is requested */
+body.force-desktop-layout .navbar-toggler {
+    display: none !important;
+}
+
+body.force-desktop-layout .navbar-collapse {
+    display: flex !important;
+}
+
+body.force-desktop-layout .navbar-nav {
+    display: flex !important;
+    flex-direction: row !important;
+}
+
+body.force-desktop-layout .navbar-text {
+    display: block !important;
+}
+
+body.force-desktop-layout .col-12.col-md-6 {
+    flex: 0 0 50% !important;
+    max-width: 50% !important;
+}
+
+body.force-desktop-layout .main-content {
+    margin-top: 80px !important;
+}
+
+body.force-desktop-layout .page-title {
+    font-size: 3rem !important;
+}
+
+body.force-desktop-layout .property-card {
+    margin-bottom: 2rem !important;
+}
+
+/* Additional desktop layout overrides */
+body.force-desktop-layout .container {
+    max-width: 1200px !important;
+    padding-left: 15px !important;
+    padding-right: 15px !important;
+}
+
+body.force-desktop-layout .row {
+    margin-left: -15px !important;
+    margin-right: -15px !important;
+}
+
+body.force-desktop-layout .col-12,
+body.force-desktop-layout .col-md-6 {
+    padding-left: 15px !important;
+    padding-right: 15px !important;
+}
+
+body.force-desktop-layout .navbar-nav .nav-link {
+    margin: 0 0.5rem !important;
+    padding: 0.5rem 1rem !important;
+}
+
+body.force-desktop-layout .footer-social {
+    display: flex !important;
+    justify-content: flex-end !important;
+}
+
+body.force-desktop-layout .footer-legal {
+    display: flex !important;
+    justify-content: flex-end !important;
+}
+
+/* Ensure proper spacing in desktop mode */
+body.force-desktop-layout .properties-section {
+    padding: 4rem 0 !important;
+}
+
+body.force-desktop-layout .footer {
+    padding: 3rem 0 1rem !important;
+}
+
+/* Force desktop layout when desktop site is requested */
+body.force-desktop-layout .navbar-toggler {
+    display: none !important;
+}
+
+body.force-desktop-layout .navbar-collapse {
+    display: flex !important;
+}
+
+body.force-desktop-layout .navbar-nav {
+    display: flex !important;
+    flex-direction: row !important;
+}
+
+body.force-desktop-layout .navbar-text {
+    display: block !important;
+}
+
+body.force-desktop-layout .col-12.col-md-6 {
+    flex: 0 0 50% !important;
+    max-width: 50% !important;
+}
+
+body.force-desktop-layout .main-content {
+    margin-top: 80px !important;
+}
+
+body.force-desktop-layout .page-title {
+    font-size: 3rem !important;
+}
+
+body.force-desktop-layout .property-card {
+    margin-bottom: 2rem !important;
+}
+
+/* Additional desktop layout overrides */
+body.force-desktop-layout .container {
+    max-width: 1200px !important;
+    padding-left: 15px !important;
+    padding-right: 15px !important;
+}
+
+body.force-desktop-layout .row {
+    margin-left: -15px !important;
+    margin-right: -15px !important;
+}
+
+body.force-desktop-layout .col-12,
+body.force-desktop-layout .col-md-6 {
+    padding-left: 15px !important;
+    padding-right: 15px !important;
+}
+
+body.force-desktop-layout .navbar-nav .nav-link {
+    margin: 0 0.5rem !important;
+    padding: 0.5rem 1rem !important;
+}
+
+body.force-desktop-layout .footer-social {
+    display: flex !important;
+    justify-content: flex-end !important;
+}
+
+body.force-desktop-layout .footer-legal {
+    display: flex !important;
+    justify-content: flex-end !important;
+}
+
+/* Ensure proper spacing in desktop mode */
+body.force-desktop-layout .properties-section {
+    padding: 4rem 0 !important;
+}
+
+body.force-desktop-layout .footer {
+    padding: 3rem 0 1rem !important;
+}
+
 .navbar {
     padding: 1rem 0;
     transition: all 0.3s ease;
