@@ -1,9 +1,111 @@
 document.addEventListener('DOMContentLoaded', function() {
+    initDesktopSiteDetection();
+    initDesktopSiteDetection();
     initNavigation();
     initPropertyCards();
     initScrollEffects();
     initMobileMenu();
 });
+
+function initDesktopSiteDetection() {
+    // Detect if desktop site is requested on mobile
+    const isMobileDevice = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    const screenWidth = window.screen.width;
+    const windowWidth = window.innerWidth;
+    
+    // Multiple detection methods for desktop site request
+    const isDesktopSiteRequested = 
+        // Method 1: Window width is much larger than typical mobile
+        windowWidth > 1024 ||
+        // Method 2: On mobile device but window width suggests desktop mode
+        (isMobileDevice && windowWidth >= 980) ||
+        // Method 3: Screen width vs window width ratio suggests desktop mode
+        (isMobileDevice && screenWidth > 0 && windowWidth / screenWidth > 0.8) ||
+        // Method 4: Check if viewport was overridden by browser
+        (isMobileDevice && window.outerWidth > 1000);
+    
+    if (isDesktopSiteRequested || windowWidth >= 992) {
+        document.body.classList.add('force-desktop-layout');
+        console.log('Desktop site detected - applying desktop layout');
+        
+        // Override viewport for better desktop site experience
+        const viewport = document.querySelector('meta[name="viewport"]');
+        if (viewport && isMobileDevice) {
+            // Set a fixed width that ensures desktop layout
+            viewport.setAttribute('content', 'width=1200, initial-scale=0.25, minimum-scale=0.1, maximum-scale=2.0, user-scalable=yes');
+            console.log('Viewport overridden for desktop site');
+        }
+        
+        // Force navbar to show desktop layout
+        const navbarCollapse = document.querySelector('.navbar-collapse');
+        if (navbarCollapse) {
+            navbarCollapse.classList.add('show');
+            console.log('Navbar forced to desktop layout');
+        }
+    } else {
+        document.body.classList.remove('force-desktop-layout');
+        console.log('Mobile layout applied');
+    }
+    
+    // Listen for orientation changes and window resizes
+    window.addEventListener('orientationchange', function() {
+        setTimeout(initDesktopSiteDetection, 500);
+    });
+    
+    window.addEventListener('resize', debounce(function() {
+        initDesktopSiteDetection();
+    }, 250));
+}
+
+function initDesktopSiteDetection() {
+    // Detect if desktop site is requested on mobile
+    const isMobileDevice = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    const screenWidth = window.screen.width;
+    const windowWidth = window.innerWidth;
+    
+    // Multiple detection methods for desktop site request
+    const isDesktopSiteRequested = 
+        // Method 1: Window width is much larger than typical mobile
+        windowWidth > 1024 ||
+        // Method 2: On mobile device but window width suggests desktop mode
+        (isMobileDevice && windowWidth >= 980) ||
+        // Method 3: Screen width vs window width ratio suggests desktop mode
+        (isMobileDevice && screenWidth > 0 && windowWidth / screenWidth > 0.8) ||
+        // Method 4: Check if viewport was overridden by browser
+        (isMobileDevice && window.outerWidth > 1000);
+    
+    if (isDesktopSiteRequested || windowWidth >= 992) {
+        document.body.classList.add('force-desktop-layout');
+        console.log('Desktop site detected - applying desktop layout');
+        
+        // Override viewport for better desktop site experience
+        const viewport = document.querySelector('meta[name="viewport"]');
+        if (viewport && isMobileDevice) {
+            // Set a fixed width that ensures desktop layout
+            viewport.setAttribute('content', 'width=1200, initial-scale=0.25, minimum-scale=0.1, maximum-scale=2.0, user-scalable=yes');
+            console.log('Viewport overridden for desktop site');
+        }
+        
+        // Force navbar to show desktop layout
+        const navbarCollapse = document.querySelector('.navbar-collapse');
+        if (navbarCollapse) {
+            navbarCollapse.classList.add('show');
+            console.log('Navbar forced to desktop layout');
+        }
+    } else {
+        document.body.classList.remove('force-desktop-layout');
+        console.log('Mobile layout applied');
+    }
+    
+    // Listen for orientation changes and window resizes
+    window.addEventListener('orientationchange', function() {
+        setTimeout(initDesktopSiteDetection, 500);
+    });
+    
+    window.addEventListener('resize', debounce(function() {
+        initDesktopSiteDetection();
+    }, 250));
+}
 
 function initNavigation() {
     const navbar = document.querySelector('.navbar');
