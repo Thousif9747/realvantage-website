@@ -7,64 +7,134 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function initDesktopSiteDetection() {
-    // Detect if desktop site is requested on mobile
     const isMobileDevice = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    const isTabletDevice = /iPad|Android(?=.*Tablet)|Android.*Tab/i.test(navigator.userAgent);
     const screenWidth = window.screen.width;
     const windowWidth = window.innerWidth;
+    const devicePixelRatio = window.devicePixelRatio || 1;
     
-    // Enhanced detection for desktop site request
-    const isDesktopSiteRequested = 
-        // Method 1: Window width suggests desktop mode
-        windowWidth >= 980 ||
-        // Method 2: On mobile device but viewport suggests desktop
-        (isMobileDevice && window.outerWidth >= 1000) ||
-        // Method 3: Screen orientation and size suggest desktop request
-        (isMobileDevice && screenWidth > 0 && windowWidth / screenWidth > 0.7);
-    
-    if (isDesktopSiteRequested) {
-        document.body.classList.add('force-desktop-layout');
-        console.log('Desktop site detected - applying desktop layout');
-        
-        // Override viewport for better desktop site experience  
-        const viewport = document.querySelector('meta[name="viewport"]');
-        if (viewport && isMobileDevice) {
-            // Set a fixed width that ensures desktop layout without user-scalable
-            viewport.setAttribute('content', 'width=1200, initial-scale=0.3, minimum-scale=0.1, maximum-scale=2.0');
-            console.log('Viewport overridden for desktop site');
-        }
-        
-        // Force navbar to show desktop layout
-        const navbarCollapse = document.querySelector('.navbar-collapse');
-        if (navbarCollapse) {
-            navbarCollapse.classList.add('show');
-        }
-        
-        // Force proper grid layout
-        const propertyCards = document.querySelectorAll('.col-12.col-md-6');
-        propertyCards.forEach(card => {
-            card.style.flex = '0 0 50%';
-            card.style.maxWidth = '50%';
-        });
-        
-    } else {
-        document.body.classList.remove('force-desktop-layout');
-        console.log('Mobile layout applied');
-        
-        // Reset viewport for mobile
-        const viewport = document.querySelector('meta[name="viewport"]');
-        if (viewport) {
-            viewport.setAttribute('content', 'width=device-width, initial-scale=1.0');
-        }
-    }
-    
-    // Listen for orientation changes and window resizes
-    window.addEventListener('orientationchange', function() {
-        setTimeout(initDesktopSiteDetection, 500);
+    console.log('Device Detection:', {
+        isMobileDevice,
+        isTabletDevice,
+        screenWidth,
+        windowWidth,
+        devicePixelRatio,
+        userAgent: navigator.userAgent
     });
     
-    window.addEventListener('resize', debounce(function() {
-        initDesktopSiteDetection();
-    }, 250));
+    // Enhanced multi-method desktop site detection
+    const isDesktopSiteRequested = detectDesktopSiteRequest(isMobileDevice, isTabletDevice, screenWidth, windowWidth);
+    
+    if (isDesktopSiteRequested) {
+        applyDesktopLayout(isMobileDevice, isTabletDevice);
+    } else {
+        applyResponsiveLayout();
+    }
+    
+    // Add event listeners (only once)
+    if (!window.desktopDetectionListenersAdded) {
+        window.addEventListener('orientationchange', function() {
+            setTimeout(initDesktopSiteDetection, 500);
+        });
+        
+        window.addEventListener('resize', debounce(function() {
+            initDesktopSiteDetection();
+        }, 250));
+        
+        window.desktopDetectionListenersAdded = true;
+    }
+}
+
+function detectDesktopSiteRequest(isMobileDevice, isTabletDevice, screenWidth, windowWidth) {
+    // Method 1: Large window width (desktop or desktop site requested)
+    if (windowWidth >= 1200) return true;
+    
+    // Method 2: Medium-large window (tablet landscape or desktop site)
+    if (windowWidth >= 992 && windowWidth < 1200) {
+        return !isMobileDevice || (isMobileDevice && windowWidth > screenWidth * 0.8);
+    }
+    
+    // Method 3: Mobile device with unusually wide viewport (desktop site requested)
+    if (isMobileDevice && windowWidth >= 980) return true;
+    
+    // Method 4: Tablet with wide viewport
+    if (isTabletDevice && windowWidth >= 768) return true;
+    
+    // Method 5: Check if viewport was overridden by browser desktop site
+    if (isMobileDevice && window.outerWidth >= 1000) return true;
+    
+    // Method 6: Screen vs window ratio suggests desktop mode
+    if (isMobileDevice && screenWidth > 0 && windowWidth / screenWidth > 0.75) return true;
+    
+    return false;
+}
+
+function applyDesktopLayout(isMobileDevice, isTabletDevice) {
+    document.body.classList.add('force-desktop-layout');
+    console.log('✅ Desktop layout applied');
+    
+    // Override viewport for better desktop experience
+    const viewport = document.querySelector('meta[name="viewport"]');
+    if (viewport && (isMobileDevice || isTabletDevice)) {
+        viewport.setAttribute('content', 'width=1200, initial-scale=0.25, minimum-scale=0.1, maximum-scale=3.0');
+        console.log('🔧 Viewport overridden for desktop site');
+    }
+    
+    // Force navbar to desktop layout
+    const navbarCollapse = document.querySelector('.navbar-collapse');
+    const navbarToggler = document.querySelector('.navbar-toggler');
+    
+    if (navbarCollapse) {
+        navbarCollapse.classList.add('show');
+        navbarCollapse.style.display = 'flex';
+    }
+    
+    if (navbarToggler) {
+        navbarToggler.style.display = 'none';
+    }
+    
+    // Ensure 2x2 grid layout for properties
+    setTimeout(() => {
+        const propertyCards = document.querySelectorAll('.col-12, .col-md-6');
+        propertyCards.forEach(card => {
+            if (card.closest('.properties-section')) {
+                card.style.flex = '0 0 50%';
+                card.style.maxWidth = '50%';
+                card.style.width = '50%';
+            }
+        });
+    }, 100);
+}
+
+function applyResponsiveLayout() {
+    document.body.classList.remove('force-desktop-layout');
+    console.log('📱 Responsive layout applied');
+    
+    // Reset viewport to responsive
+    const viewport = document.querySelector('meta[name="viewport"]');
+    if (viewport) {
+        viewport.setAttribute('content', 'width=device-width, initial-scale=1.0');
+    }
+    
+    // Reset inline styles
+    const propertyCards = document.querySelectorAll('.col-12, .col-md-6');
+    propertyCards.forEach(card => {
+        card.style.flex = '';
+        card.style.maxWidth = '';
+        card.style.width = '';
+    });
+    
+    const navbarCollapse = document.querySelector('.navbar-collapse');
+    const navbarToggler = document.querySelector('.navbar-toggler');
+    
+    if (navbarCollapse && window.innerWidth < 992) {
+        navbarCollapse.style.display = '';
+        navbarCollapse.classList.remove('show');
+    }
+    
+    if (navbarToggler && window.innerWidth < 992) {
+        navbarToggler.style.display = '';
+    }
 }
 
 function initNavigation() {
@@ -213,12 +283,30 @@ function initMobileMenu() {
     
     document.querySelectorAll('.nav-link').forEach(link => {
         link.addEventListener('click', function() {
-            if (window.innerWidth < 992) {
+            if (window.innerWidth < 992 && !document.body.classList.contains('force-desktop-layout')) {
                 const bsCollapse = new bootstrap.Collapse(navbarCollapse, {
                     hide: true
                 });
             }
         });
+    });
+    
+    // Handle touch events for better mobile experience
+    if ('ontouchstart' in window) {
+        document.addEventListener('touchstart', function() {}, { passive: true });
+    }
+    
+    // Close mobile menu when clicking outside
+    document.addEventListener('click', function(e) {
+        if (window.innerWidth < 992 && 
+            !document.body.classList.contains('force-desktop-layout') &&
+            !e.target.closest('.navbar') && 
+            navbarCollapse.classList.contains('show')) {
+            
+            const bsCollapse = new bootstrap.Collapse(navbarCollapse, {
+                hide: true
+            });
+        }
     });
 }
 
