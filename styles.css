@@ -13,13 +13,13 @@ body {
     transition: all 0.3s ease;
 }
 
-/* Smooth transitions for responsive changes */
-.container, .container-md, .row, .col-12, .col-md-6 {
-    transition: all 0.3s ease;
+/* Smooth transitions for interactive elements only */
+.property-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.navbar, .navbar-collapse, .navbar-nav, .property-card {
-    transition: all 0.3s ease;
+.navbar {
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 /* Performance optimizations */
@@ -39,22 +39,15 @@ html {
 }
 
 /* ===========================
-   RESPONSIVE DESIGN FOR ALL DEVICES
+   RESPONSIVE DESIGN ENHANCEMENTS
+   (Working with Bootstrap's responsive system)
    =========================== */
 
-/* Mobile First Base Styles (320px+) */
-.container, .container-md {
-    width: 100%;
-    padding-right: 15px;
-    padding-left: 15px;
-    margin-right: auto;
-    margin-left: auto;
-}
-
-/* Small Mobile (320px - 479px) */
-@media (max-width: 479px) {
+/* Mobile Enhancements - Don't override Bootstrap grid */
+@media (max-width: 575px) {
     .page-title {
-        font-size: 2rem !important;
+        font-size: 2rem;
+        margin-bottom: 2rem;
     }
     
     .property-image {
@@ -69,15 +62,20 @@ html {
         padding: 2rem 0;
     }
     
-    .footer-logo {
-        font-size: 8rem;
+    .property-info {
+        padding: 1rem;
+    }
+    
+    .price-value {
+        font-size: 1.25rem;
     }
 }
 
-/* Mobile (480px - 767px) */
-@media (min-width: 480px) and (max-width: 767px) {
+/* Small tablet and large mobile */
+@media (min-width: 576px) and (max-width: 767px) {
     .page-title {
-        font-size: 2.5rem !important;
+        font-size: 2.5rem;
+        margin-bottom: 2.5rem;
     }
     
     .property-image {
@@ -87,111 +85,46 @@ html {
     .properties-section {
         padding: 3rem 0;
     }
-    
-    .footer-logo {
-        font-size: 10rem;
-    }
 }
 
-/* Tablet (768px - 991px) */
-@media (min-width: 768px) and (max-width: 991px) {
-    .container, .container-md {
-        max-width: 750px;
-    }
-    
-    .col-md-6 {
-        flex: 0 0 50%;
-        max-width: 50%;
+/* Medium screens - let Bootstrap handle col-md-6 */
+@media (min-width: 768px) {
+    .property-image {
+        height: 280px;
     }
     
     .page-title {
         font-size: 2.8rem;
     }
-    
-    .property-image {
-        height: 280px;
-    }
-    
-    .navbar-nav .nav-link {
-        margin: 0 0.3rem;
-        padding: 0.4rem 0.8rem;
-    }
-    
-    .footer-social {
-        justify-content: flex-end;
-    }
-    
-    .footer-logo {
-        font-size: 11rem;
-    }
 }
 
-/* Desktop (992px - 1199px) */
-@media (min-width: 992px) and (max-width: 1199px) {
-    .container, .container-md {
-        max-width: 970px;
-    }
-    
-    .col-md-6 {
-        flex: 0 0 50%;
-        max-width: 50%;
-    }
-    
-    .navbar-collapse {
-        display: flex !important;
-    }
-    
-    .navbar-toggler {
-        display: none;
-    }
-    
-    .navbar-nav {
-        flex-direction: row;
-        margin: auto;
+/* Large screens */
+@media (min-width: 992px) {
+    .property-image {
+        height: 300px;
     }
     
     .page-title {
         font-size: 3rem;
     }
     
-    .property-image {
-        height: 300px;
-    }
-    
     .properties-section {
         padding: 4rem 0;
     }
-    
-    .footer-logo {
-        font-size: 12rem;
-    }
 }
 
-/* Large Desktop (1200px+) */
+/* Extra large screens */
 @media (min-width: 1200px) {
-    .container, .container-md {
-        max-width: 1200px;
-    }
-    
-    .col-md-6 {
-        flex: 0 0 50%;
-        max-width: 50%;
+    .property-image {
+        height: 350px;
     }
     
     .page-title {
         font-size: 3.5rem;
     }
     
-    .property-image {
-        height: 350px;
-    }
-    
     .properties-section {
         padding: 5rem 0;
-    }
-    
-    .footer-logo {
-        font-size: 13rem;
     }
 }
 
@@ -263,8 +196,6 @@ body.force-desktop-layout .col-12,
 body.force-desktop-layout .col-md-6 {
     padding-left: 15px !important;
     padding-right: 15px !important;
-    position: relative !important;
-    min-height: 1px !important;
 }
 
 body.force-desktop-layout .navbar-nav .nav-link {
@@ -591,10 +522,35 @@ body.dark-header .phone-link:hover {
 }
 
 .footer-logo {
-    font-size: 13rem;
+    font-size: 4rem;
     font-weight: 700;
     color: #333;
     margin: 0;
+}
+
+/* Responsive footer logo sizing */
+@media (max-width: 575px) {
+    .footer-logo {
+        font-size: 2.5rem;
+    }
+}
+
+@media (min-width: 576px) and (max-width: 767px) {
+    .footer-logo {
+        font-size: 3rem;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+    .footer-logo {
+        font-size: 3.5rem;
+    }
+}
+
+@media (min-width: 992px) {
+    .footer-logo {
+        font-size: 4rem;
+    }
 }
 
 .footer-bottom {
