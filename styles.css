@@ -98,6 +98,12 @@ body.dark-header .phone-link:hover {
     min-height: calc(100vh - 80px);
 }
 
+@media (max-width: 991px) {
+    .main-content {
+        margin-top: 90px;
+    }
+}
+
 .properties-section {
     padding: 4rem 0;
 }
@@ -133,6 +139,12 @@ body.dark-header .phone-link:hover {
     position: relative;
     overflow: hidden;
     height: 300px;
+}
+
+@media (max-width: 480px) {
+    .property-image {
+        height: 200px;
+    }
 }
 
 .property-image img {
@@ -717,6 +729,19 @@ body.dark-header .phone-link:hover {
     .properties-section {
         padding: 2rem 0;
     }
+    
+    .property-card {
+        margin-bottom: 1.5rem;
+    }
+    
+    .main-content {
+        padding-top: 90px;
+    }
+    
+    .container {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
 }
 
 @media (max-width: 576px) {
@@ -739,5 +764,55 @@ body.dark-header .phone-link:hover {
     
     .price-value {
         font-size: 1.25rem;
+    }
+    
+    .property-image {
+        height: 250px;
+    }
+    
+    .container {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+    
+    .main-content {
+        padding-top: 100px;
+    }
+    
+    .properties-section {
+        padding: 1rem 0;
+    }
+    
+    .navbar-nav {
+        text-align: center;
+        margin-top: 1rem;
+    }
+    
+    .navbar-nav .nav-link {
+        padding: 0.75rem 1rem !important;
+        margin: 0.25rem 0;
+    }
+    
+    .navbar-text {
+        text-align: center;
+        margin-top: 1rem;
+    }
+    
+    .navbar-toggler {
+        border: none;
+        padding: 0.25rem 0.5rem;
+    }
+    
+    .navbar-toggler:focus {
+        box-shadow: none;
+    }
+    
+    .row.g-4 {
+        margin: 0 -0.5rem;
+    }
+    
+    .row.g-4 > * {
+        padding: 0 0.5rem;
+        margin-bottom: 1rem;
     }
 }
