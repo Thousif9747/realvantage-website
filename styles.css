@@ -149,9 +149,9 @@ body.force-desktop-layout .container-md {
 .navbar {
     padding: 1rem 0;
     transition: all 0.3s ease;
-    background-color: rgba(255, 255, 255, 0.95) !important;
-    -webkit-backdrop-filter: blur(10px);
-    backdrop-filter: blur(10px);
+    background-color: #000 !important;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
     z-index: 1060; /* keep navbar above content */
 }
 
@@ -167,7 +167,7 @@ body.dark-header .navbar {
 
 .navbar-nav .nav-link {
     font-weight: 500;
-    color: #333 !important;
+    color: #f5f5f5 !important;
     margin: 0 0.5rem;
     padding: 0.5rem 1rem !important;
     transition: all 0.3s ease;
@@ -180,7 +180,7 @@ body.dark-header .navbar-nav .nav-link {
 
 .navbar-nav .nav-link:hover,
 .navbar-nav .nav-link.active {
-    color: #007bff !important;
+    color: #4fc3f7 !important;
 }
 
 body.dark-header .navbar-nav .nav-link:hover,
@@ -210,7 +210,7 @@ body.dark-header .navbar-nav .nav-link::after {
 }
 
 .phone-link {
-    color: #333 !important;
+    color: #f5f5f5 !important;
     text-decoration: none;
     font-weight: 500;
     transition: color 0.3s ease;
@@ -221,7 +221,7 @@ body.dark-header .phone-link {
 }
 
 .phone-link:hover {
-    color: #007bff !important;
+    color: #4fc3f7 !important;
 }
 
 body.dark-header .phone-link:hover {
@@ -240,7 +240,7 @@ body.dark-header .phone-link:hover {
     }
     
     .navbar-collapse {
-        background-color: rgba(255, 255, 255, 0.95);
+    background-color: #000;
         border-radius: 8px;
         margin-top: 0.5rem;
         padding: 1rem;
@@ -249,8 +249,9 @@ body.dark-header .phone-link:hover {
     }
     
     .navbar-nav .nav-link {
-        padding: 0.775rem 1rem; /* bigger tap target */ /* bigger tap target */
+        padding: 0.9rem 1rem; /* bigger tap target */
         text-align: center;
+        color: #f5f5f5 !important;
     }
 
     .navbar-nav {
@@ -265,8 +266,7 @@ body.dark-header .phone-link:hover {
         text-align: center;
         margin-top: 0.75rem;
         padding-top: 0.75rem;
-        border-top: 1px solid rgba(0,0,0,0.06);
-        border-top: 1px solid rgba(0,0,0,0.06);
+        border-top: 1px solid rgba(255,255,255,0.15);
     }
 }
 
@@ -958,7 +958,7 @@ body.dark-header .phone-link:hover {
     }
     
     .property-image {
-        height: 220px;
+        height: 240px;
     }
     
     .container {
@@ -972,7 +972,7 @@ body.dark-header .phone-link:hover {
     }
     
     .properties-section {
-        padding: 1.5rem 0;
+        padding: 1.5rem 0 2.5rem;
     }
     
     .navbar-nav {
@@ -1024,7 +1024,7 @@ body.dark-header .phone-link:hover {
 /* Additional mobile-first approach */
 @media (max-width: 576px) {
     .property-image {
-        height: 200px;
+        height: 220px;
     }
     
     .page-title {
@@ -1070,10 +1070,10 @@ body.dark-header .phone-link:hover {
 
 /* When the mobile menu is open (toggled via JS), make links dark on light background */
 body.menu-open .navbar-nav .nav-link,
-body.menu-open .phone-link {
-	color: #333 !important;
+body.menu-open .phone-link { 
+    color: #f5f5f5 !important; 
 }
 
 body.menu-open .navbar-nav .nav-link::after {
-	background-color: #007bff;
+    background-color: #4fc3f7;
 }
