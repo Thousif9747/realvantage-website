@@ -247,14 +247,24 @@ body.dark-header .phone-link:hover {
     }
     
     .navbar-nav .nav-link {
-        padding: 0.5rem 1rem;
+        padding: 0.775rem 1rem; /* bigger tap target */ /* bigger tap target */
         text-align: center;
+    }
+
+    .navbar-nav {
+        gap: 0.25rem;
+    }
+
+    .navbar-nav {
+        gap: 0.25rem;
     }
     
     .navbar-text {
         text-align: center;
-        margin-top: 1rem;
-        padding-top: 1rem;
+        margin-top: 0.75rem;
+        padding-top: 0.75rem;
+        border-top: 1px solid rgba(0,0,0,0.06);
+        border-top: 1px solid rgba(0,0,0,0.06);
     }
 }
 
