@@ -78,20 +78,11 @@ function detectDesktopSiteRequest(isMobileDevice, windowWidth, screenWidth) {
     return windowWidth >= 992; // Standard desktop breakpoint
   }
 
-  // Mobile device cases (be a bit more aggressive to catch Chrome "Desktop site")
-  // 1) Visual viewport wide enough
+  // Mobile device case: only treat as desktop when the viewport itself is truly wide
+  // These checks avoid false positives and keep phones responsive by default
   if (window.visualViewport && window.visualViewport.width >= 980) return true;
-
-  // 2) Direct viewport width checks
-  if (windowWidth >= 1024) return true; // very likely desktop mode
-  if (windowWidth >= 980) return true;   // common desktop-layout width
-
-  // 3) Consider physical CSS px width when DPR is high (zoomed out desktop site)
+  if (windowWidth >= 980) return true;
   if (window.devicePixelRatio && (windowWidth / window.devicePixelRatio) >= 980) return true;
-
-  // 4) Wide viewport compared to screen width indicates forced desktop
-  if (windowWidth >= 800 && screenWidth < 500) return true;
-  if (screenWidth > 0 && windowWidth > screenWidth * 1.5) return true;
 
   return false;
 }
