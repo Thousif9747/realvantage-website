@@ -254,6 +254,8 @@ body.dark-header .navbar-nav .nav-link::after {
     padding: 0.4rem 0.9rem;
     border-radius: 18px;
     font-size: 0.85rem;
+    white-space: nowrap;
+    display: inline-block;
 }
 
 body.dark-header .phone-link {
