@@ -57,7 +57,7 @@ padding: 3rem 0;
 }
 
 .properties-section {
-        padding: 4rem 0;
+        padding: 3rem 0;
 }
 
 /* Desktop enhancements */
@@ -81,7 +81,7 @@ padding: 3rem 0;
 /* Large desktop enhancements */
 @media (min-width: 1200px) {
     .properties-section {
-        padding: 5rem 0;
+        padding: 3rem 0;
     }
     
     .page-title {
@@ -240,7 +240,7 @@ body.dark-header .phone-link:hover {
 
 .main-content {
     margin-top: 80px;
-    min-height: calc(100vh - 80px);
+    min-height: auto;
 }
 
 /* Mobile Navigation Enhancement */
@@ -377,7 +377,7 @@ body.dark-header .phone-link:hover {
 .footer {
     background-color: #f8f9fa !important;
     padding: 2.5rem 0 1rem;
-    margin-top: 3rem;
+    margin-top: 2rem;
 }
 
 .footer-top {
@@ -1018,12 +1018,7 @@ body.dark-header .phone-link:hover {
         margin-bottom: 1.5rem;
     }
     
-    /* Force single column on mobile */
-    .col-12.col-md-6 {
-        flex: 0 0 100% !important;
-        max-width: 100% !important;
-        width: 100% !important;
-    }
+    /* Let Bootstrap handle columns; no forced 100% width at md */
     
     .row.g-3 .col-12 {
         flex-basis: 100% !important;
@@ -1050,7 +1045,7 @@ body.dark-header .phone-link:hover {
         padding: 1rem 0;
     }
     
-    /* Override Bootstrap grid completely on small mobile */
+    /* Keep single column on extra-small screens only for readability */
     .row > [class*="col-"] {
         flex: 0 0 100% !important;
         max-width: 100% !important;
