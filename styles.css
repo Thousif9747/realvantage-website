@@ -138,12 +138,17 @@ body.force-desktop-layout .property-image {
 }
 
 body.force-desktop-layout .properties-section {
-    padding: 5rem 0 !important;
+    padding: 2.5rem 0 !important;
 }
 
 body.force-desktop-layout .container,
 body.force-desktop-layout .container-md {
     max-width: 1200px !important;
+}
+
+/* Reduce gap above footer in Desktop-site mode */
+body.force-desktop-layout .footer {
+    margin-top: 2rem !important;
 }
 
 .navbar {
@@ -366,8 +371,8 @@ body.dark-header .phone-link:hover {
 
 .footer {
     background-color: #f8f9fa !important;
-    padding: 3rem 0 1rem;
-    margin-top: 4rem;
+    padding: 2.5rem 0 1rem;
+    margin-top: 3rem;
 }
 
 .footer-top {
@@ -432,7 +437,7 @@ body.dark-header .phone-link:hover {
 
 @media (min-width: 992px) {
     .footer-logo {
-        font-size: 4rem;
+        font-size: 3.25rem;
     }
 }
 
