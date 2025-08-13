@@ -39,92 +39,57 @@ html {
 }
 
 /* ===========================
-   RESPONSIVE DESIGN ENHANCEMENTS
-   (Working with Bootstrap's responsive system)
+   NATURAL NATURAL RESPONSIVE DESIGN
+   (Let Bootstrap handle responsiveness naturally)
    =========================== */
 
-/* Mobile Enhancements - Don't override Bootstrap grid */
-@media (max-width: 575px) {
-    .page-title {
-        font-size: 2rem;
-        margin-bottom: 2rem;
-    }
-    
-    .property-image {
-        height: 200px;
-    }
-    
-    .navbar {
-        padding: 0.5rem 0;
-    }
-    
-    .properties-section {
-        padding: 2rem 0;
-    }
-    
-    .property-info {
-        padding: 1rem;
-    }
-    
-    .price-value {
-        font-size: 1.25rem;
-    }
+/* Base styles - Mobile first */
+.properties-section {
+padding: 3rem 0;
 }
 
-/* Small tablet and large mobile */
-@media (min-width: 576px) and (max-width: 767px) {
-    .page-title {
-        font-size: 2.5rem;
-        margin-bottom: 2.5rem;
-    }
-    
-    .property-image {
-        height: 250px;
-    }
-    
+.page-title {
+    font-size: 5rem;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 3rem;
+    color: #333;
+}
+
+.properties-section {
+        padding: 4rem 0;
+}
+
+/* Desktop enhancements */
+@media (min-width: 992px) {
     .properties-section {
         padding: 3rem 0;
     }
-}
 
-/* Medium screens - let Bootstrap handle col-md-6 */
-@media (min-width: 768px) {
-    .property-image {
-        height: 280px;
-    }
-    
     .page-title {
-        font-size: 2.8rem;
+        font-size: 3.2rem;
+        font-weight: 700;
+        text-align: center;
+        color: #333;
     }
-}
 
-/* Large screens */
-@media (min-width: 992px) {
     .property-image {
         height: 300px;
     }
-    
-    .page-title {
-        font-size: 3rem;
-    }
-    
-    .properties-section {
-        padding: 4rem 0;
-    }
 }
 
-/* Extra large screens */
+/* Large desktop enhancements */
 @media (min-width: 1200px) {
-    .property-image {
-        height: 350px;
+    .properties-section {
+        padding: 5rem 0;
     }
     
     .page-title {
         font-size: 3.5rem;
     }
     
-    .properties-section {
-        padding: 5rem 0;
+    .property-image {
+        height: 320px;
     }
 }
 
@@ -138,111 +103,47 @@ body.force-desktop-layout {
     overflow-x: auto !important;
 }
 
+/* Force desktop navigation */
 body.force-desktop-layout .navbar-toggler {
     display: none !important;
 }
 
+/* Force desktop navigation */
 body.force-desktop-layout .navbar-collapse {
     display: flex !important;
     visibility: visible !important;
 }
 
-body.force-desktop-layout .navbar-nav {
+/* Desktop layout .properties-section .col-12.navbar-nav {
     display: flex !important;
-    flex-direction: row !important;
-    margin: auto !important;
-}
-
-body.force-desktop-layout .navbar-text {
+    flex-direction: row sizing */
+/* Force desktopt .navbar-text {
     display: block !important;
 }
 
-body.force-desktop-layout .col-12,
-body.force-desktop-layout .col-md-6 {
+/* Force desktop grid - 2x2 layout */
+body.force-desktop-layout .properties-section .col-12.col-md-6 {
     flex: 0 0 50% !important;
     max-width: 50% !important;
     width: 50% !important;
 }
 
-body.force-desktop-layout .main-content {
-    margin-top: 80px !important;
-}
-
+/* Desktop layout sizing */
 body.force-desktop-layout .page-title {
     font-size: 3.5rem !important;
 }
 
-body.force-desktop-layout .property-card {
-    margin-bottom: 2rem !important;
-    display: block !important;
+body.force-desktop-layout .property-image {
+    height: 320px !important;
 }
 
-/* Enhanced desktop layout overrides */
-body.force-desktop-layout .container,
-body.force-desktop-layout .container-md {
-    max-width: 1200px !important;
-    padding-left: 15px !important;
-    padding-right: 15px !important;
-}
-
-body.force-desktop-layout .row {
-    margin-left: -15px !important;
-    margin-right: -15px !important;
-    display: flex !important;
-    flex-wrap: wrap !important;
-}
-
-body.force-desktop-layout .col-12,
-body.force-desktop-layout .col-md-6 {
-    padding-left: 15px !important;
-    padding-right: 15px !important;
-}
-
-body.force-desktop-layout .navbar-nav .nav-link {
-    margin: 0 0.5rem !important;
-    padding: 0.5rem 1rem !important;
-}
-
-body.force-desktop-layout .footer-social {
-    display: flex !important;
-    justify-content: flex-end !important;
-    gap: 1rem !important;
-}
-
-body.force-desktop-layout .footer-legal {
-    display: flex !important;
-    justify-content: flex-end !important;
-    gap: 1rem !important;
-}
-
-/* Ensure proper spacing in desktop mode */
 body.force-desktop-layout .properties-section {
     padding: 5rem 0 !important;
 }
 
-body.force-desktop-layout .footer {
-    padding: 3rem 0 1rem !important;
-}
-
-/* Force responsive grid to work properly */
-body.force-desktop-layout .g-3 {
-    --bs-gutter-x: 1rem !important;
-    --bs-gutter-y: 1rem !important;
-}
-
-/* Ensure images display properly in desktop mode */
-body.force-desktop-layout .property-image {
-    height: 350px !important;
-}
-
-body.force-desktop-layout .property-image img {
-    width: 100% !important;
-    height: 100% !important;
-    object-fit: cover !important;
-}
-
-body.force-desktop-layout .footer-logo {
-    font-size: 13rem !important;
+body.force-desktop-layout .container,
+body.force-desktop-layout .container-md {
+    max-width: 1200px !important;
 }
 
 .navbar {
@@ -261,7 +162,6 @@ body.dark-header .navbar {
 .navbar-brand img {
     height: 40px;
     width: auto;
-    filter: none;
 }
 
 .navbar-nav .nav-link {
@@ -332,101 +232,59 @@ body.dark-header .phone-link:hover {
     min-height: calc(100vh - 80px);
 }
 
-/* Enhanced Mobile Responsiveness */
+/* Mobile Navigation Enhancement */
 @media (max-width: 991px) {
     .main-content {
-        margin-top: 90px;
+        margin-top: 85px;
     }
     
     .navbar-collapse {
-        background-color: rgba(255, 255, 255, 0.98);
+        background-color: rgba(255, 255, 255, 0.95);
         border-radius: 8px;
-        margin-top: 1rem;
+        margin-top: 0.5rem;
         padding: 1rem;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     }
     
     .navbar-nav .nav-link {
-        padding: 0.75rem 1rem;
-        border-bottom: 1px solid #f0f0f0;
+        padding: 0.5rem 1rem;
         text-align: center;
-    }
-    
-    .navbar-nav .nav-link:last-child {
-        border-bottom: none;
     }
     
     .navbar-text {
         text-align: center;
         margin-top: 1rem;
         padding-top: 1rem;
-        border-top: 1px solid #f0f0f0;
-    }
-    
-    .property-card {
-        margin-bottom: 2rem;
-    }
-    
-    /* Stack footer elements on mobile */
-    .footer-social {
-        justify-content: center !important;
-        margin-bottom: 1rem;
-    }
-    
-    .footer-legal {
-        justify-content: center !important;
-        text-align: center;
-    }
-    
-    .footer-legal a {
-        display: inline-block;
-        margin: 0.25rem 0.5rem;
     }
 }
 
-.properties-section {
-    padding: 4rem 0;
-}
-
-.page-title {
-    font-size: 3rem;
-    font-weight: 700;
-    text-align: center;
-    margin-bottom: 3rem;
-    color: #333;
-}
+/* Removed duplicate - already defined above */
 
 .property-card {
     background: #fff;
     border-radius: 16px;
     overflow: hidden;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-    transition: all 0.3s ease;
     height: 100%;
     width: 100%;
     display: block;
+    position: relative; /* needed for overlay info */
 }
 
+/* Property card interactions */
 .property-card {
     cursor: pointer;
-    transition: all 0.3s ease;
 }
 
 .property-card:hover {
     transform: translateY(-8px);
-    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 12px 15px rgba(0, 0, 0, 0.2);
 }
 
 .property-image {
     position: relative;
     overflow: hidden;
-    height: 300px;
-}
-
-@media (max-width: 480px) {
-    .property-image {
-        height: 200px;
-    }
+    height: inherit; /* Use responsive heights defined above */
 }
 
 .property-image img {
@@ -440,9 +298,21 @@ body.dark-header .phone-link:hover {
     transform: scale(1.05);
 }
 
+/* Overlayed info similar to reference */
 .property-info {
-    padding: 1.5rem;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 1rem 1.25rem;
+    color: #fff;
+    background: linear-gradient(180deg, rgba(0,0,0,0.0) 0%, rgba(0,0,0,0.35) 25%, rgba(0,0,0,0.55) 100%);
 }
+
+.price-value,
+.address-value,
+.price-label,
+.address-label { color: #fff; }
 
 .property-price {
     margin-bottom: 1rem;
@@ -463,6 +333,7 @@ body.dark-header .phone-link:hover {
     margin: 0.25rem 0 0 0;
 }
 
+/* Property card interactions */
 .property-address {
     margin-bottom: 1rem;
 }
