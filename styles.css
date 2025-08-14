@@ -56,17 +56,6 @@ html {
     color: #333;
 }
 
-/* Properties page title override */
-#properties .page-title {
-    font-size: clamp(3.5rem, 8vw, 6.5rem);
-    font-weight: 800;
-    text-align: left;
-    margin: 0 auto 1.75rem; /* center container, keep bottom spacing */
-    color: #111;
-    max-width: 1200px; /* align with grid width */
-    padding: 0 1rem;   /* align with grid side padding */
-}
-
 /* CSS Grid Layout for Properties */
 .properties-grid {
     display: grid;
@@ -175,11 +164,11 @@ body.force-desktop-layout .main-content {
 .navbar {
     padding: 0.5rem 0;
     transition: all 0.3s ease;
-    background-color: transparent; /* default: use Bootstrap bg classes */
+    background-color: #000 !important;
     -webkit-backdrop-filter: none;
     backdrop-filter: none;
     z-index: 1060;
-    border-bottom: 1px solid rgba(0,0,0,0.08);
+    border-bottom: 1px solid rgba(255,255,255,0.1);
 }
 
 /* Medium width navbar container */
@@ -187,31 +176,17 @@ body.force-desktop-layout .main-content {
     max-width: 960px;
 }
 
-/* Navbar toggler - default dark for light navbar */
+/* White hamburger menu button */
 .navbar-toggler {
-    border: 1px solid rgba(0, 0, 0, 0.25);
+    border: 1px solid rgba(255, 255, 255, 0.3);
     padding: 0.25rem 0.5rem;
 }
 
 .navbar-toggler:focus {
-    box-shadow: 0 0 0 0.2rem rgba(0, 0, 0, 0.15);
-}
-
-/* Default toggler icon (dark) */
-.navbar-toggler-icon {
-    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%280, 0, 0, 1%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
-}
-
-/* Dark header overrides */
-body.dark-header .navbar-toggler {
-    border: 1px solid rgba(255, 255, 255, 0.3);
-}
-
-body.dark-header .navbar-toggler:focus {
     box-shadow: 0 0 0 0.2rem rgba(255, 255, 255, 0.25);
 }
 
-body.dark-header .navbar-toggler-icon {
+.navbar-toggler-icon {
     background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 1%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
 }
 
@@ -227,7 +202,7 @@ body.dark-header .navbar {
 
 .navbar-nav .nav-link {
     font-weight: 500;
-    color: #111 !important; /* default: dark text on light navbar */
+    color: #fff !important;
     margin: 0 0.75rem;
     padding: 0.4rem 0.75rem !important;
     transition: all 0.3s ease;
@@ -519,28 +494,6 @@ body.dark-header .phone-link:hover {
 
 .property-detail-section {
     padding: 3rem 0;
-}
-
-/* Contact page map embed */
-.map-embed {
-    border-radius: 16px;
-    overflow: hidden;
-    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
-    height: 480px; /* medium desktop height */
-    width: 100%;
-}
-/* Tablet medium height */
-@media (max-width: 991px) {
-    .map-embed { height: 380px; }
-}
-.map-embed iframe {
-    width: 100%;
-    height: 100%;
-    border: 0;
-    display: block;
-}
-@media (max-width: 575px) {
-    .map-embed { height: 300px; }
 }
 
 .property-detail-title {
