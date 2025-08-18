@@ -145,17 +145,19 @@ body.force-desktop-layout .navbar .navbar-text {
     border-top: 0;
 }
 
-/* Desktop navbar layout fix */
-@media (min-width: 992px) {
+/* Desktop navbar layout fix (Bootstrap md and up) */
+@media (min-width: 768px) {
     .navbar .navbar-collapse { display: flex !important; }
     .navbar .navbar-nav {
         display: flex !important;
         flex-direction: row;
         align-items: center;
+        justify-content: flex-start; /* align items from the left */
+        flex-wrap: nowrap; /* prevent wrapping into multiple rows */
         width: auto;
     }
     .navbar .navbar-text {
-        margin-left: auto;
+        margin-left: auto; /* push CTA to the right */
         text-align: right;
         margin-top: 0;
         padding-top: 0;
@@ -334,8 +336,8 @@ body.dark-header .phone-link:hover {
 }
 
 /* Mobile Navigation Enhancement */
-/* Mobile nav grid overrides */
-@media (max-width: 991.98px) {
+/* Mobile nav grid overrides (Bootstrap sm and below) */
+@media (max-width: 767.98px) {
     /* Ensure collapse area has spacing and proper background on dark pages */
     .navbar-collapse {
         padding: 0.75rem 1rem;
@@ -343,8 +345,8 @@ body.dark-header .phone-link:hover {
     body.dark-header .navbar-collapse {
         background-color: #1f1f1f;
     }
-    /* Use grid instead of flex for mobile nav */
-    .navbar-nav {
+    /* Use grid instead of flex for mobile nav (disabled when forcing desktop) */
+    body:not(.force-desktop-layout) .navbar-nav {
         display: grid !important;
         grid-template-columns: 1fr;
         gap: 0.25rem;
@@ -363,7 +365,7 @@ body.dark-header .phone-link:hover {
         width: 100%;
     }
 }
-@media (max-width: 991px) {
+@media (max-width: 767.98px) {
     .main-content {
         margin-top: 70px;
     }
