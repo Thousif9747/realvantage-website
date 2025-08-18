@@ -248,41 +248,43 @@ function initScrollEffects() {
 }
 
 function initMobileMenu() {
-  const navbarCollapse = document.querySelector('.navbar-collapse');
+  const navbarCollapse = document.getElementById('navbarNav');
+  const toggler = document.querySelector('.navbar-toggler');
 
-  // Force desktop layout automatically in Chrome's "Desktop site" if heuristics match
-  const isMobileDevice = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-  const windowWidth = window.innerWidth;
-  const screenWidth = window.screen.width;
-  const forcedDesktop = isMobileDevice && (
-    (window.visualViewport && window.visualViewport.width >= 980) ||
-    windowWidth >= 980 ||
-    (window.devicePixelRatio && (windowWidth / window.devicePixelRatio) >= 980) ||
-    (screenWidth > 0 && windowWidth > screenWidth * 1.5)
-  );
-  if (forcedDesktop) {
-    document.body.classList.add('force-desktop-layout');
-  }
-
-  // Close mobile menu when nav link is clicked (on mobile only)
-  document.querySelectorAll('.nav-link').forEach(link => {
-    link.addEventListener('click', function() {
-      if (window.innerWidth < 992 && !document.body.classList.contains('force-desktop-layout')) {
-        if (navbarCollapse && navbarCollapse.classList.contains('show')) {
-          const bsCollapse = new bootstrap.Collapse(navbarCollapse);
-          bsCollapse.hide();
-        }
-      }
-    });
-  });
-
-  // Improve readability in dark-header when menu is open
+  // Ensure a single Bootstrap Collapse instance and manual toggle for reliability
   if (navbarCollapse) {
+    const bsCollapse = bootstrap.Collapse.getOrCreateInstance(navbarCollapse, { toggle: false });
+
+    if (toggler) {
+      // Prevent double toggle by disabling Bootstrap's data API on this button
+      toggler.removeAttribute('data-bs-toggle');
+      toggler.removeAttribute('data-bs-target');
+
+      toggler.addEventListener('click', (e) => {
+        e.preventDefault();
+        bsCollapse.toggle();
+      });
+    }
+
+    // Close mobile menu when a nav link is clicked (only on mobile/responsive layout)
+    document.querySelectorAll('.nav-link').forEach(link => {
+      link.addEventListener('click', () => {
+        if (window.innerWidth < 992 && !document.body.classList.contains('force-desktop-layout')) {
+          if (navbarCollapse.classList.contains('show')) {
+            bsCollapse.hide();
+          }
+        }
+      });
+    });
+
+    // Body helper class for styling when menu is open and keep aria in sync
     navbarCollapse.addEventListener('show.bs.collapse', () => {
       document.body.classList.add('menu-open');
+      if (toggler) toggler.setAttribute('aria-expanded', 'true');
     });
     navbarCollapse.addEventListener('hide.bs.collapse', () => {
       document.body.classList.remove('menu-open');
+      if (toggler) toggler.setAttribute('aria-expanded', 'false');
     });
   }
 }
