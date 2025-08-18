@@ -351,14 +351,20 @@ body.dark-header .phone-link:hover {
         grid-template-columns: 1fr;
         gap: 0.25rem;
         width: 100%;
+        justify-items: start; /* left-align items */
     }
     .navbar-nav .nav-link {
         padding: 0.9rem 1rem !important; /* bigger tap target */
-        text-align: center;
+        text-align: left;
+    }
+    /* Align underline to the left on mobile */
+    .navbar-nav .nav-link::after {
+        left: 0;
+        transform: none;
     }
     /* Place phone CTA at the bottom with separator */
     .navbar-text {
-        text-align: center;
+        text-align: left;
         margin-top: 0.75rem;
         padding-top: 0.75rem;
         border-top: 1px solid rgba(255,255,255,0.15);
@@ -372,16 +378,17 @@ body.dark-header .phone-link:hover {
 
     .navbar-nav .nav-link {
         padding: 0.9rem 1rem; /* bigger tap target */
-        text-align: center;
+        text-align: left; /* left-align menu text */
         color: #f5f5f5 !important;
     }
 
     .navbar-nav {
         gap: 0.25rem;
+        justify-items: start; /* ensure left alignment in grid */
     }
     
     .navbar-text {
-        text-align: center;
+        text-align: left; /* left-align CTA */
         margin-top: 0.75rem;
         padding-top: 0.75rem;
         border-top: 1px solid rgba(255,255,255,0.15);
