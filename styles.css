@@ -130,6 +130,39 @@ body.force-desktop-layout .navbar-collapse {
     visibility: visible !important;
 }
 
+/* Ensure flex layout in forced desktop mode */
+body.force-desktop-layout .navbar .navbar-nav {
+    display: flex !important;
+    flex-direction: row;
+    align-items: center;
+    width: auto;
+}
+body.force-desktop-layout .navbar .navbar-text {
+    margin-left: auto;
+    text-align: right;
+    margin-top: 0;
+    padding-top: 0;
+    border-top: 0;
+}
+
+/* Desktop navbar layout fix */
+@media (min-width: 992px) {
+    .navbar .navbar-collapse { display: flex !important; }
+    .navbar .navbar-nav {
+        display: flex !important;
+        flex-direction: row;
+        align-items: center;
+        width: auto;
+    }
+    .navbar .navbar-text {
+        margin-left: auto;
+        text-align: right;
+        margin-top: 0;
+        padding-top: 0;
+        border-top: 0;
+    }
+}
+
 /* Desktop layout .properties-section .col-12.navbar-nav {
     display: flex !important;
     flex-direction: row sizing */
@@ -189,13 +222,8 @@ body.force-desktop-layout .main-content {
 
 /* Navbar toggler - default dark for light navbar */
 .navbar-toggler {
-    display: inline-flex; /* ensure visible */
-    align-items: center;
-    justify-content: center;
     border: 1px solid rgba(0, 0, 0, 0.25);
-    padding: 0.4rem 0.6rem;
-    width: 42px;
-    height: 38px;
+    padding: 0.25rem 0.5rem;
 }
 
 .navbar-toggler:focus {
@@ -339,18 +367,11 @@ body.dark-header .phone-link:hover {
     .main-content {
         margin-top: 70px;
     }
-    
-    
-    }
-    
+
     .navbar-nav .nav-link {
         padding: 0.9rem 1rem; /* bigger tap target */
         text-align: center;
         color: #f5f5f5 !important;
-    }
-
-    .navbar-nav {
-        gap: 0.25rem;
     }
 
     .navbar-nav {
@@ -363,6 +384,7 @@ body.dark-header .phone-link:hover {
         padding-top: 0.75rem;
         border-top: 1px solid rgba(255,255,255,0.15);
     }
+}
 
 
 /* Removed duplicate - already defined above */
@@ -510,7 +532,7 @@ body.dark-header .phone-link:hover {
 }
 
 .footer-logo {
-    font-size: clamp(8rem, 12vw, 10rem) !important;
+    font-size: clamp(2rem, 6vw, 2.5rem) !important;
     font-weight: 800;
     color: #000;
     margin: 0;
@@ -520,7 +542,7 @@ body.dark-header .phone-link:hover {
 /* Responsive footer logo sizing */
 @media (max-width: 575px) {
     .footer-logo {
-        font-size: clamp(4rem, 12vw, 6rem);
+        font-size: clamp(1.25rem, 7vw, 1.75rem);
     }
 }
 
