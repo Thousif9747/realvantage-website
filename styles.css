@@ -338,6 +338,14 @@ body.dark-header .phone-link:hover {
 /* Mobile Navigation Enhancement */
 /* Mobile nav grid overrides (Bootstrap sm and below) */
 @media (max-width: 767.98px) {
+    /* Align brand and toggler on one row, side-by-side on the left */
+    .navbar .container-md {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 0.5rem;
+    }
+    .navbar-toggler { margin-left: 0.5rem; }
     /* Ensure collapse area has spacing and proper background on dark pages */
     .navbar-collapse {
         padding: 0.75rem 1rem;
@@ -1226,4 +1234,59 @@ body.menu-open .navbar-nav .nav-link::after {
         font-size: 2rem !important; /* mobile */
         line-height: 0.85;
     }
+}
+
+/* ------------------------------
+   Mobile navbar: left toggle + modern animations
+   ------------------------------ */
+/* Replace default hamburger with custom animated one */
+.navbar-toggler-icon { 
+    background-image: none !important; /* remove Bootstrap bg */
+    position: relative;
+    width: 24px; 
+    height: 2px; 
+    background-color: currentColor; /* middle bar */
+    transition: background-color 0.2s ease, transform 0.25s ease;
+}
+.navbar-toggler-icon::before,
+.navbar-toggler-icon::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    width: 24px;
+    height: 2px;
+    background-color: currentColor;
+    transition: transform 0.25s ease, opacity 0.2s ease, background-color 0.2s ease;
+}
+.navbar-toggler-icon::before { top: -6px; }
+.navbar-toggler-icon::after  { top:  6px; }
+
+/* Colors for light/dark headers */
+.navbar-toggler { color: #111; }
+body.dark-header .navbar-toggler { color: #f5f5f5; }
+
+/* Animate into an X when menu is open */
+body.menu-open .navbar-toggler-icon { background-color: transparent; }
+body.menu-open .navbar-toggler-icon::before { transform: translateY(6px) rotate(45deg); }
+body.menu-open .navbar-toggler-icon::after  { transform: translateY(-6px) rotate(-45deg); }
+
+/* Position toggle to the LEFT of the logo on mobile */
+@media (max-width: 767.98px) {
+  .navbar .container-md { display: flex; align-items: center; }
+  .navbar-toggler { order: 1; margin-right: 0.4rem; border: none; padding: 0.5rem; }
+  .navbar-brand   { order: 2; margin-left: 0.1rem; }
+  .navbar-collapse{ order: 3; width: 100%; }
+}
+
+/* Smooth collapse animation */
+@media (max-width: 767.98px) {
+  .navbar-collapse { 
+    transform: translateY(-8px); 
+    opacity: 0; 
+    transition: transform 0.25s ease, opacity 0.25s ease;
+  }
+  .navbar-collapse.show { 
+    transform: translateY(0); 
+    opacity: 1; 
+  }
 }
