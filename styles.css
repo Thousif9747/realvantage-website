@@ -1213,3 +1213,17 @@ body.menu-open .phone-link {
 body.menu-open .navbar-nav .nav-link::after {
     background-color: #4fc3f7;
 }
+
+/* Explicit footer logo sizes to ensure correct scaling */
+@media (min-width: 768px) {
+    .footer-logo {
+        font-size: 12rem !important; /* desktop/tablet */
+        line-height: 0.85;
+    }
+}
+@media (max-width: 767.98px) {
+    .footer-logo {
+        font-size: 2rem !important; /* mobile */
+        line-height: 0.85;
+    }
+}
