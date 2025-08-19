@@ -20,7 +20,8 @@ window.RealVantage = {
     if (preferDesktop === '1') localStorage.setItem('rv_desktop_layout', '1');
     if (preferDesktop === '0') localStorage.removeItem('rv_desktop_layout');
 
-    if (localStorage.getItem('rv_desktop_layout') === '1') {
+    // Honor saved preference only on widths >= 768px (never force desktop on small phones)
+    if (localStorage.getItem('rv_desktop_layout') === '1' && window.innerWidth >= 768) {
       document.body.classList.add('force-desktop-layout');
     }
   } catch (e) {
@@ -69,9 +70,14 @@ function detectDesktopSiteRequest(isMobileDevice, windowWidth, screenWidth) {
   // URL and user preference overrides
   try {
     const params = new URLSearchParams(location.search);
-    if (params.get('desktop') === '1' || localStorage.getItem('rv_desktop_layout') === '1') return true;
+    if (params.get('desktop') === '1') return true;
     if (params.get('desktop') === '0') return false;
   } catch (e) {}
+
+  // Enforce: saved preference only applies when viewport is >= 768px
+  if (localStorage.getItem('rv_desktop_layout') === '1' && windowWidth >= 768) {
+    return true;
+  }
 
   // If not a mobile device, use natural responsive behavior
   if (!isMobileDevice) {
@@ -248,43 +254,54 @@ function initScrollEffects() {
 }
 
 function initMobileMenu() {
-  const navbarCollapse = document.getElementById('navbarNav');
-  const toggler = document.querySelector('.navbar-toggler');
+  // Custom slide-in menu (no Bootstrap offcanvas)
+  const customMenu = document.getElementById('mobileMenuCustom');
+  const toggler = document.querySelector('.menu-toggle');
+  const closeBtn = document.querySelector('.menu-close');
 
-  // Ensure a single Bootstrap Collapse instance and manual toggle for reliability
-  if (navbarCollapse) {
-    const bsCollapse = bootstrap.Collapse.getOrCreateInstance(navbarCollapse, { toggle: false });
-
-    if (toggler) {
-      // Prevent double toggle by disabling Bootstrap's data API on this button
-      toggler.removeAttribute('data-bs-toggle');
-      toggler.removeAttribute('data-bs-target');
-
-      toggler.addEventListener('click', (e) => {
-        e.preventDefault();
-        bsCollapse.toggle();
-      });
-    }
-
-    // Close mobile menu when a nav link is clicked (only on mobile/responsive layout)
-    document.querySelectorAll('.nav-link').forEach(link => {
-      link.addEventListener('click', () => {
-        if (window.innerWidth < 992 && !document.body.classList.contains('force-desktop-layout')) {
-          if (navbarCollapse.classList.contains('show')) {
-            bsCollapse.hide();
-          }
-        }
-      });
-    });
-
-    // Body helper class for styling when menu is open and keep aria in sync
-    navbarCollapse.addEventListener('show.bs.collapse', () => {
+  if (customMenu && toggler) {
+    const openMenu = () => {
+      customMenu.classList.add('open');
       document.body.classList.add('menu-open');
-      if (toggler) toggler.setAttribute('aria-expanded', 'true');
-    });
-    navbarCollapse.addEventListener('hide.bs.collapse', () => {
+      toggler.setAttribute('aria-expanded', 'true');
+    };
+    const closeMenu = () => {
+      customMenu.classList.remove('open');
       document.body.classList.remove('menu-open');
-      if (toggler) toggler.setAttribute('aria-expanded', 'false');
+      toggler.setAttribute('aria-expanded', 'false');
+    };
+
+    toggler.addEventListener('click', (e) => {
+      e.preventDefault();
+      if (customMenu.classList.contains('open')) closeMenu();
+      else openMenu();
+    });
+
+    if (closeBtn) closeBtn.addEventListener('click', closeMenu);
+
+    // Close when clicking any nav link
+    customMenu.querySelectorAll('.nav-link').forEach(link => {
+      link.addEventListener('click', closeMenu);
+    });
+
+    // Close on ESC
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeMenu();
+    });
+
+    return;
+  }
+
+  // Fallback: Bootstrap collapse (desktop and pages without custom menu)
+  const navbarCollapse = document.getElementById('navbarNav');
+  const bsToggler = document.querySelector('.navbar-toggler');
+  if (navbarCollapse && bsToggler) {
+    const bsCollapse = bootstrap.Collapse.getOrCreateInstance(navbarCollapse, { toggle: false });
+    bsToggler.removeAttribute('data-bs-toggle');
+    bsToggler.removeAttribute('data-bs-target');
+    bsToggler.addEventListener('click', (e) => {
+      e.preventDefault();
+      bsCollapse.toggle();
     });
   }
 }
