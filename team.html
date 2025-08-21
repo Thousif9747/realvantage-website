@@ -21,46 +21,66 @@
         .team-card {
             background: #fff;
             border-radius: 16px;
-            border: 1px solid rgba(0,0,0,0.06);
-            box-shadow: 0 6px 24px rgba(0,0,0,0.08);
-            padding: clamp(1.25rem, 2.5vw, 2rem);
+            border: 1px solid rgba(0,0,0,0.12);
+            box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+            padding: clamp(1rem, 2vw, 1.5rem);
             height: 100%;
             transition: transform 0.25s ease, box-shadow 0.25s ease;
+            /* Media-object layout like reference: image left, content right */
+            display: grid;
+            grid-template-columns: 120px 1fr; /* mobile-first */
+            gap: 0.9rem 1rem;
+            align-items: start;
+            text-align: left; /* override .text-center */
         }
         .team-card:hover { transform: translateY(-6px); box-shadow: 0 14px 28px rgba(0,0,0,0.14); }
         
         .team-photo {
-            width: clamp(96px, 12vw, 140px);
-            height: clamp(96px, 12vw, 140px);
+            width: 100%;
+            max-width: 120px; /* match grid col */
+            height: 120px;
             object-fit: cover;
-            border-radius: 50%;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
-            margin-bottom: 1rem;
+            border-radius: 8px; /* rectangular as in screenshot */
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+            margin: 0; /* no bottom margin in media layout */
+            grid-row: 1 / span 3; /* span alongside text */
         }
         .team-name {
-            font-size: clamp(1.1rem, 2.2vw, 1.5rem);
+            font-size: clamp(1.25rem, 2.5vw, 1.65rem);
             font-weight: 800;
             color: #222;
-            margin-bottom: 0.25rem;
+            margin-bottom: 0.15rem;
         }
         .team-role {
             color: #6c757d;
-            font-weight: 600;
-            margin-bottom: 0.85rem;
+            font-style: italic; /* like reference */
+            font-weight: 500;
+            margin-bottom: 0.5rem;
         }
         .team-bio {
             color: #555;
-            font-size: clamp(0.95rem, 1.2vw, 1rem);
-            line-height: 1.65;
+            font-size: 0.95rem;
+            line-height: 1.6;
             margin: 0;
+            max-width: 60ch;
         }
         
-        /* Spacing adjustments on larger screens */
+        /* Spacing and layout adjustments on larger screens */
         @media (min-width: 768px) {
-            .team-card { padding: 1.75rem; }
+            .team-card { 
+                padding: 1.25rem 1.5rem; 
+                grid-template-columns: 160px 1fr; /* image wider on tablet */
+                gap: 1rem 1.25rem;
+            }
+            .team-photo { max-width: 160px; height: 160px; }
         }
         @media (min-width: 1200px) {
-            .team-card { padding: 2rem; }
+            .team-card { 
+                padding: 1.25rem 1.75rem; 
+                grid-template-columns: 200px 1fr; /* desktop like reference */
+                gap: 1.25rem 1.5rem;
+            }
+            .team-photo { max-width: 200px; height: 200px; }
         }
     </style>
 </head>
@@ -98,7 +118,7 @@
     <!-- Custom mobile slide-in menu -->
     <div class="mobile-menu d-lg-none" id="mobileMenuCustom" aria-hidden="true">
         <div class="mobile-menu-header">
-            <a class="navbar-brand" href="home.html">
+            <a class="navbar-brand" href="index.html">
                 <img src="https://framerusercontent.com/images/9dE4ik6QhUMAp0iYpZAfulLYSs.png" alt="RealVantage Logo" height="40">
             </a>
             <button class="menu-close" aria-label="Close menu">&times;</button>
@@ -128,8 +148,8 @@
                 </div>
                 <div class="row g-4">
                     <!-- John Harrison -->
-                    <div class="col-12 col-sm-6 col-lg-4 d-flex">
-                        <div class="team-card text-center h-100 w-100">
+                    <div class="col-12">
+                        <div class="team-card h-100 w-100">
                             <img class="team-photo" src="https://framerusercontent.com/images/3osDZRIBVWNglP7F0JYZlFMtE.jpg" alt="John Harrison - Senior Broker">
                             <h3 class="team-name">John Harrison</h3>
                             <div class="team-role">Senior Broker</div>
@@ -137,8 +157,8 @@
                         </div>
                     </div>
                     <!-- Margaret Sinclair -->
-                    <div class="col-12 col-sm-6 col-lg-4 d-flex">
-                        <div class="team-card text-center h-100 w-100">
+                    <div class="col-12">
+                        <div class="team-card h-100 w-100">
                             <img class="team-photo" src="https://framerusercontent.com/images/0kE0nZ2vYrJDxqZo7vKBdvhTunk.jpg?scale-down-to=1024" alt="Margaret Sinclair - Client Relations Manager">
                             <h3 class="team-name">Margaret Sinclair</h3>
                             <div class="team-role">Client Relations Manager</div>
@@ -146,8 +166,8 @@
                         </div>
                     </div>
                     <!-- Ethan Parker -->
-                    <div class="col-12 col-sm-6 col-lg-4 d-flex">
-                        <div class="team-card text-center h-100 w-100">
+                    <div class="col-12">
+                        <div class="team-card h-100 w-100">
                             <img class="team-photo" src="https://framerusercontent.com/images/3wWJ2SBuytguIRGDOkVM8wKtSfY.jpg" alt="Ethan Parker - Real Estate Agent">
                             <h3 class="team-name">Ethan Parker</h3>
                             <div class="team-role">Real Estate Agent</div>
