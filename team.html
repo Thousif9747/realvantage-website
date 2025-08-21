@@ -11,7 +11,12 @@
     <link rel="stylesheet" href="styles.css">
     <style>
         /* Team page styles (scoped to this file) */
-        .team-section { padding: clamp(2rem, 4vw, 3.5rem) 0; }
+        /* Reduce top gap under fixed header and tighten title spacing */
+        .team-section { padding: clamp(1rem, 2.5vw, 2rem) 0; }
+        .team-section .page-title { font-size: clamp(2.25rem, 3vw, 3rem); margin: 0 0 0.75rem; text-align: center; }
+        .team-section .text-muted { margin-bottom: 1rem !important; }
+        /* Hide underline effect only inside slide-in mobile menu to avoid long blue line */
+        .mobile-menu .navbar-nav .nav-link::after { display: none !important; }
         
         .team-card {
             background: #fff;
@@ -137,7 +142,7 @@
                             <img class="team-photo" src="https://framerusercontent.com/images/0kE0nZ2vYrJDxqZo7vKBdvhTunk.jpg?scale-down-to=1024" alt="Margaret Sinclair - Client Relations Manager">
                             <h3 class="team-name">Margaret Sinclair</h3>
                             <div class="team-role">Client Relations Manager</div>
-                            <p class="team-bio">With over a decade of industry experience, Margaret excels at building long-lasting client relationships and ensuring a seamless experience from consultation to closing. Her market knowledge and communication skills make her an invaluable partner to our clients.</p>
+                            <p class="team-bio">Margaret Sinclair brings over a decade of experience in the real estate industry to her role as Client Relations Manager at RealVantage. With a passion for fostering strong, long-lasting relationships, Margaret excels in ensuring that every client receives the highest level of personalized service. Her extensive knowledge of the market, combined with her exceptional communication skills, allows her to understand and anticipate clients' needs effectively. At RealVantage, Margaret is dedicated to creating a seamless and positive experience for all clients, from initial consultation to closing and beyond. Her commitment to excellence and client satisfaction makes her an invaluable asset to the RealVantage team.</p>
                         </div>
                     </div>
                     <!-- Ethan Parker -->
@@ -146,7 +151,7 @@
                             <img class="team-photo" src="https://framerusercontent.com/images/3wWJ2SBuytguIRGDOkVM8wKtSfY.jpg" alt="Ethan Parker - Real Estate Agent">
                             <h3 class="team-name">Ethan Parker</h3>
                             <div class="team-role">Real Estate Agent</div>
-                            <p class="team-bio">Ethan brings fresh energy and a client-focused approach, pairing a background in marketing with sharp execution. He helps clients navigate competitive markets with tailored strategies and a dedication to smooth, successful transactions.</p>
+                            <p class="team-bio">Ethan Parker is a dynamic and dedicated Real Estate Agent at RealVantage, bringing fresh energy and a client-focused approach to the team. With a background in marketing and a keen eye for detail, Ethan excels in helping clients navigate the competitive real estate market. His commitment to understanding each client's unique needs and his ability to provide tailored solutions ensure a smooth and successful transaction process. At RealVantage, Ethan's innovative strategies and relentless work ethic make him a trusted advisor for buyers and sellers alike. Whether you're looking to find your dream home or maximize the value of your property, Ethan Parker is here to guide you every step of the way.</p>
                         </div>
                     </div>
                 </div>
