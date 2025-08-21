@@ -18,6 +18,37 @@
         /* Hide underline effect only inside slide-in mobile menu to avoid long blue line */
         .mobile-menu .navbar-nav .nav-link::after { display: none !important; }
         
+        /* Mobile menu close button styling */
+        .mobile-menu-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem;
+            background: #1f1f1f;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .menu-close {
+            background: transparent;
+            border: none;
+            color: #fff;
+            font-size: 2rem;
+            font-weight: 300;
+            line-height: 1;
+            padding: 0.25rem 0.5rem;
+            cursor: pointer;
+            transition: color 0.2s ease, transform 0.2s ease;
+        }
+        
+        .menu-close:hover {
+            color: #4fc3f7;
+            transform: scale(1.1);
+        }
+        
+        .mobile-menu-header .navbar-brand img {
+            height: 40px;
+        }
+        
         /* Ensure toggle button is visible on mobile and tablet */
         @media (max-width: 991px) {
             .navbar-toggler,
