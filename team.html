@@ -13,10 +13,130 @@
         /* Team page styles (scoped to this file) */
         /* Reduce top gap under fixed header and tighten title spacing */
         .team-section { padding: clamp(1rem, 2.5vw, 2rem) 0; }
-        .team-section .page-title { font-size: clamp(2.25rem, 3vw, 3rem); margin: 0 0 0.75rem; text-align: center; }
+        .team-section .page-title { font-size: clamp(2.25rem, 3vw, 3rem); margin: 0 0 0.75rem; text-align: left; }
         .team-section .text-muted { margin-bottom: 1rem !important; }
         /* Hide underline effect only inside slide-in mobile menu to avoid long blue line */
         .mobile-menu .navbar-nav .nav-link::after { display: none !important; }
+        
+        /* Ensure toggle button is visible on mobile and tablet */
+        @media (max-width: 991px) {
+            .navbar-toggler,
+            .menu-toggle {
+                display: block !important;
+                visibility: visible !important;
+                opacity: 1 !important;
+            }
+            
+            /* Hide any extra navigation elements on mobile/tablet */
+            .navbar-nav.show { display: none !important; }
+            .mobile-menu .navbar-nav .nav-link::after { display: none !important; }
+            
+            /* Completely disable nav-link underlines on mobile/tablet */
+            .navbar-nav .nav-link::after { display: none !important; }
+            .navbar-nav .nav-link:hover::after { display: none !important; }
+            .navbar-nav .nav-link.active::after { display: none !important; }
+            
+            /* Ensure main navbar is collapsed on mobile/tablet */
+            #navbarNav { display: none !important; }
+            .navbar-collapse { display: none !important; }
+            .navbar-collapse.show { display: none !important; }
+            
+            /* Hide any navbar-nav that might leak through */
+            .navbar-nav { display: none !important; }
+        }
+        
+        /* Ensure mobile menu is completely hidden on desktop */
+        @media (min-width: 992px) {
+            .mobile-menu,
+            .mobile-menu.open { 
+                display: none !important; 
+                visibility: hidden !important;
+                opacity: 0 !important;
+                transform: translateX(-100%) !important;
+            }
+            #navbarNav { display: flex !important; }
+        }
+        
+        /* Ensure Bootstrap navbar collapse doesn't show on desktop */
+        @media (min-width: 992px) {
+            .navbar-collapse { display: flex !important; }
+            .navbar-collapse.collapse { display: flex !important; }
+            .navbar-collapse.collapse.show { display: flex !important; }
+            .navbar-collapse.collapsing { display: flex !important; }
+        }
+        
+        /* Hide any stray navigation elements that might appear on desktop */
+        @media (min-width: 992px) {
+            .navbar-nav.show { display: none !important; }
+            .collapse.show { display: flex !important; }
+            /* Hide any mobile menu elements that might leak through */
+            .mobile-menu * { display: none !important; }
+            body.menu-open .mobile-menu { display: none !important; }
+            
+            /* Force navbar to be horizontal on desktop */
+            .navbar-nav { 
+                flex-direction: row !important; 
+                position: static !important;
+                width: auto !important;
+            }
+            .navbar-nav .nav-item {
+                display: inline-block !important;
+            }
+            
+            /* Hide any vertical navigation that might appear */
+            .navbar-collapse.show .navbar-nav {
+                flex-direction: row !important;
+                position: static !important;
+            }
+            
+            /* Disable navbar toggler on desktop only */
+            .navbar-toggler,
+            .menu-toggle,
+            .navbar-toggler-icon,
+            button[aria-controls="mobileMenuCustom"] {
+                display: none !important;
+                visibility: hidden !important;
+                opacity: 0 !important;
+            }
+            
+            /* Ensure navbar collapse is always visible and horizontal on desktop */
+            #navbarNav {
+                display: flex !important;
+                flex-basis: auto !important;
+            }
+            #navbarNav .navbar-nav {
+                flex-direction: row !important;
+            }
+            
+            /* Prevent any Bootstrap mobile classes from affecting desktop */
+            .d-lg-none {
+                display: none !important;
+            }
+            
+            /* Force main navbar to always be visible and horizontal */
+            .navbar-expand-lg .navbar-nav {
+                flex-direction: row !important;
+                display: flex !important;
+            }
+            
+            .navbar-expand-lg .navbar-collapse {
+                display: flex !important;
+                flex-basis: auto !important;
+            }
+            
+            /* Hide any navigation elements outside the main navbar */
+            body > .nav-link,
+            body > .navbar-nav,
+            main .nav-link:not(.team-card .nav-link) {
+                display: none !important;
+            }
+            
+            /* Ensure only the navbar navigation is visible */
+            .navbar .navbar-nav {
+                display: flex !important;
+                flex-direction: row !important;
+            }
+        }
         
         .team-card {
             background: #fff;
@@ -26,24 +146,22 @@
             padding: clamp(1rem, 2vw, 1.5rem);
             height: 100%;
             transition: transform 0.25s ease, box-shadow 0.25s ease;
-            /* Media-object layout like reference: image left, content right */
-            display: grid;
-            grid-template-columns: 120px 1fr; /* mobile-first */
-            gap: 0.9rem 1rem;
-            align-items: start;
-            text-align: left; /* override .text-center */
+            /* Mobile-first: centered card layout */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
         }
         .team-card:hover { transform: translateY(-6px); box-shadow: 0 14px 28px rgba(0,0,0,0.14); }
         
         .team-photo {
             width: 100%;
-            max-width: 120px; /* match grid col */
-            height: 120px;
+            max-width: 200px;
+            height: 200px;
             object-fit: cover;
-            border-radius: 8px; /* rectangular as in screenshot */
+            border-radius: 8px;
             box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
-            margin: 0; /* no bottom margin in media layout */
-            grid-row: 1 / span 3; /* span alongside text */
+            margin-bottom: 1rem;
         }
         .team-name {
             font-size: clamp(1.25rem, 2.5vw, 1.65rem);
@@ -65,22 +183,33 @@
             max-width: 60ch;
         }
         
-        /* Spacing and layout adjustments on larger screens */
+        /* Switch to media-object layout on larger screens */
         @media (min-width: 768px) {
             .team-card { 
-                padding: 1.25rem 1.5rem; 
-                grid-template-columns: 160px 1fr; /* image wider on tablet */
+                display: grid;
+                grid-template-columns: 160px 1fr;
                 gap: 1rem 1.25rem;
+                align-items: start;
+                text-align: left;
+                padding: 1.25rem 1.5rem;
             }
-            .team-photo { max-width: 160px; height: 160px; }
+            .team-photo { 
+                max-width: 160px; 
+                height: 160px; 
+                margin-bottom: 0;
+                grid-row: 1 / span 3;
+            }
         }
         @media (min-width: 1200px) {
             .team-card { 
-                padding: 1.25rem 1.75rem; 
-                grid-template-columns: 200px 1fr; /* desktop like reference */
+                grid-template-columns: 200px 1fr;
                 gap: 1.25rem 1.5rem;
+                padding: 1.25rem 1.75rem;
             }
-            .team-photo { max-width: 200px; height: 200px; }
+            .team-photo { 
+                max-width: 200px; 
+                height: 200px; 
+            }
         }
     </style>
 </head>
@@ -143,7 +272,7 @@
                 <div class="row">
                     <div class="col-12">
                         <h1 class="page-title">Our Team</h1>
-                        <p class="text-center text-muted mb-4">Meet the people behind RealVantage.</p>
+                        <p class="text-left text-muted mb-4">Meet the people behind RealVantage.</p>
                     </div>
                 </div>
                 <div class="row g-4">
