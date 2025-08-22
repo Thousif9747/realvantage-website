@@ -1,1287 +1,448 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-body {
-    font-family: 'Inter', sans-serif;
-    line-height: 1.6;
-    color: #333;
-    background-color: #fff;
-    overflow-x: hidden;
-    transition: all 0.3s ease;
-}
-
-/* Smooth transitions for interactive elements only */
-.property-card {
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.navbar {
-    transition: background-color 0.3s ease, box-shadow 0.3s ease;
-}
-
-/* Performance optimizations */
-.property-image img {
-    will-change: transform;
-    backface-visibility: hidden;
-}
-
-.property-card {
-    will-change: transform;
-    backface-visibility: hidden;
-}
-
-/* Smooth scrolling */
-html {
-    scroll-behavior: smooth;
-}
-
-/* ===========================
-   CSS GRID RESPONSIVE DESIGN
-   (Using CSS Grid instead of flexbox)
-   =========================== */
-
-/* Base styles - Mobile first */
-.properties-section {
-    padding: 3rem 0;
-}
-
-.page-title {
-    font-size: 5rem;
-    font-weight: 700;
-    text-align: center;
-    margin-bottom: 3rem;
-    color: #333;
-}
-
-/* Properties page title override */
-#properties .page-title {
-    font-size: clamp(3.5rem, 8vw, 6.5rem);
-    font-weight: 800;
-    text-align: left;
-    margin: 0 auto 1.75rem; /* center container, keep bottom spacing */
-    color: #111;
-    max-width: 1200px; /* align with grid width */
-    padding: 0 1rem;   /* align with grid side padding */
-}
-
-/* CSS Grid Layout for Properties */
-.properties-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 2rem;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 1rem;
-}
-
-/* Tablet and above - 2 columns */
-@media (min-width: 768px) {
-    .properties-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 2.5rem;
-    }
-    
-    .page-title {
-        font-size: 3.2rem;
-    }
-
-    .property-image {
-        height: 300px;
-    }
-}
-
-/* Large desktop enhancements */
-@media (min-width: 1200px) {
-    .properties-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 3rem;
-    }
-    
-    .page-title {
-        font-size: 3.5rem;
-    }
-    
-    .property-image {
-        height: 320px;
-    }
-}
-
-/* ===========================
-   DESKTOP SITE LAYOUT OVERRIDE
-   (When "Desktop site" is requested on mobile)
-   =========================== */
-
-body.force-desktop-layout {
-    min-width: 1200px !important;
-    overflow-x: auto !important;
-}
-
-/* Force desktop navigation */
-body.force-desktop-layout .navbar-toggler {
-    display: none !important;
-}
-
-/* Force desktop navigation */
-body.force-desktop-layout .navbar-collapse {
-    display: flex !important;
-    visibility: visible !important;
-}
-
-/* Ensure flex layout in forced desktop mode */
-body.force-desktop-layout .navbar .navbar-nav {
-    display: flex !important;
-    flex-direction: row;
-    align-items: center;
-    width: auto;
-}
-body.force-desktop-layout .navbar .navbar-text {
-    margin-left: auto;
-    text-align: right;
-    margin-top: 0;
-    padding-top: 0;
-    border-top: 0;
-}
-
-/* Desktop navbar layout fix (Bootstrap md and up) */
-@media (min-width: 768px) {
-    .navbar .navbar-collapse { display: flex !important; }
-    .navbar .navbar-nav {
-        display: flex !important;
-        flex-direction: row;
-        align-items: center;
-        justify-content: flex-start; /* align items from the left */
-        flex-wrap: nowrap; /* prevent wrapping into multiple rows */
-        width: auto;
-    }
-    .navbar .navbar-text {
-        margin-left: auto; /* push CTA to the right */
-        text-align: right;
-        margin-top: 0;
-        padding-top: 0;
-        border-top: 0;
-    }
-}
-
-/* Desktop layout .properties-section .col-12.navbar-nav {
-    display: flex !important;
-    flex-direction: row sizing */
-/* Force desktopt .navbar-text {
-    display: block !important;
-}
-
-/* Force desktop grid - 2x2 layout */
-body.force-desktop-layout .properties-grid {
-    grid-template-columns: repeat(2, 1fr) !important;
-    gap: 3rem !important;
-    max-width: 1200px !important;
-}
-
-/* Desktop layout sizing */
-body.force-desktop-layout .page-title {
-    font-size: 3.5rem !important;
-}
-
-body.force-desktop-layout .property-image {
-    height: 320px !important;
-}
-
-body.force-desktop-layout .properties-section {
-    padding: 2.5rem 0 !important;
-}
-
-body.force-desktop-layout .container,
-body.force-desktop-layout .container-md {
-    max-width: 1200px !important;
-}
-
-/* Reduce gap above footer in Desktop-site mode */
-body.force-desktop-layout .footer {
-    margin-top: 2rem !important;
-}
-
-/* Let content define height in Desktop-site mode to avoid large white gaps */
-body.force-desktop-layout .main-content {
-    min-height: auto !important;
-}
-
-.navbar {
-    padding: 0.5rem 0;
-    transition: all 0.3s ease;
-    background-color: transparent; /* default: use Bootstrap bg classes */
-    -webkit-backdrop-filter: none;
-    backdrop-filter: none;
-    z-index: 1060;
-    border-bottom: 1px solid rgba(0,0,0,0.08);
-}
-
-/* Medium width navbar container */
-.navbar .container-md {
-    max-width: 960px;
-}
-
-/* Navbar toggler - default dark for light navbar */
-.navbar-toggler {
-    border: 1px solid rgba(0, 0, 0, 0.25);
-    padding: 0.25rem 0.5rem;
-}
-
-.navbar-toggler:focus {
-    box-shadow: 0 0 0 0.2rem rgba(0, 0, 0, 0.15);
-}
-
-/* Default toggler icon (dark) */
-.navbar-toggler-icon {
-    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%280, 0, 0, 1%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
-}
-
-/* Dark header overrides */
-body.dark-header .navbar-toggler {
-    border: 1px solid rgba(255, 255, 255, 0.3);
-}
-
-body.dark-header .navbar-toggler:focus {
-    box-shadow: 0 0 0 0.2rem rgba(255, 255, 255, 0.25);
-}
-
-body.dark-header .navbar-toggler-icon {
-    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 1%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
-}
-
-body.dark-header .navbar {
-    background-color: #1f1f1f !important;
-    box-shadow: none;
-}
-
-.navbar-brand img {
-    height: 40px; /* ensure visibility like reference */
-    width: auto;
-    display: inline-block;
-}
-
-.navbar-nav .nav-link {
-    font-weight: 500;
-    color: #111 !important; /* default: dark text on light navbar */
-    margin: 0 0.75rem;
-    padding: 0.4rem 0.75rem !important;
-    transition: all 0.3s ease;
-    position: relative;
-    font-size: 0.9rem;
-}
-
-body.dark-header .navbar-nav .nav-link {
-    color: #f5f5f5 !important;
-}
-
-.navbar-nav .nav-link:hover,
-.navbar-nav .nav-link.active {
-    color: #4fc3f7 !important;
-}
-
-body.dark-header .navbar-nav .nav-link:hover,
-body.dark-header .navbar-nav .nav-link.active {
-    color: #4fc3f7 !important;
-}
-
-.navbar-nav .nav-link::after {
-    content: '';
-    position: absolute;
-    width: 0;
-    height: 2px;
-    bottom: 0;
-    left: 50%;
-    background-color: #007bff;
-    transition: all 0.3s ease;
-    transform: translateX(-50%);
-}
-
-body.dark-header .navbar-nav .nav-link::after {
-    background-color: #4fc3f7;
-}
-
-.navbar-nav .nav-link:hover::after,
-.navbar-nav .nav-link.active::after {
-    width: 80%;
-}
-
-.phone-link {
-    color: #fff !important;
-    text-decoration: none;
-    font-weight: 500;
-    transition: color 0.3s ease;
-    border: 1px solid #fff;
-    padding: 0.4rem 0.9rem;
-    border-radius: 18px;
-    font-size: 0.85rem;
-    white-space: nowrap;
-    display: inline-block;
-}
-
-body.dark-header .phone-link {
-    color: #f5f5f5 !important;
-}
-
-.phone-link:hover {
-    color: #4fc3f7 !important;
-}
-
-body.dark-header .phone-link:hover {
-    color: #4fc3f7 !important;
-}
-
-.main-content {
-    margin-top: 60px;
-    min-height: auto;
-}
-
-/* Mobile Navigation Enhancement */
-/* Mobile nav grid overrides (Bootstrap sm and below) */
-@media (max-width: 767.98px) {
-    /* Align brand left and toggler right */
-    .navbar .container-md {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 0.5rem;
-    }
-    .navbar-brand { order: 1; }
-    .menu-toggle, .navbar-toggler { order: 2; margin-left: 0.5rem; }
-    /* Ensure collapse area has spacing and proper background on dark pages */
-    .navbar-collapse {
-        padding: 0.75rem 1rem;
-    }
-    body.dark-header .navbar-collapse {
-        background-color: #1f1f1f;
-    }
-    /* Use grid instead of flex for mobile nav (disabled when forcing desktop) */
-    body:not(.force-desktop-layout) .navbar-nav {
-        display: grid !important;
-        grid-template-columns: 1fr;
-        gap: 0.25rem;
-        width: 100%;
-        justify-items: start; /* left-align items */
-    }
-    .navbar-nav .nav-link {
-        padding: 0.9rem 1rem !important; /* bigger tap target */
-        text-align: left;
-    }
-    /* Align underline to the left on mobile */
-    .navbar-nav .nav-link::after {
-        left: 0;
-        transform: none;
-    }
-    /* Place phone CTA at the bottom with separator */
-    .navbar-text {
-        text-align: left;
-        margin-top: 0.75rem;
-        padding-top: 0.75rem;
-        border-top: 1px solid rgba(255,255,255,0.15);
-        width: 100%;
-    }
-}
-@media (max-width: 767.98px) {
-    .main-content { margin-top: 70px; }
-
-    /* Custom slide-in mobile menu */
-    .mobile-menu { position: fixed; top: 0; left: 0; bottom: 0; width: 100vw; background: #1f1f1f; color: #f5f5f5; transform: translateX(-100%); opacity: 0; transition: transform 0.25s ease, opacity 0.25s ease; z-index: 1050; display: flex; flex-direction: column; }
-    .mobile-menu.open { transform: translateX(0); opacity: 1; }
-    .mobile-menu-header { display: flex; align-items: center; justify-content: space-between; padding: 0.75rem 1rem; position: relative; }
-    .mobile-menu-header .navbar-brand img { height: 28px; }
-    .menu-close { background: transparent; border: 0; color: #fff; font-size: 2rem; line-height: 2; position: absolute; top: 4px; right: 10px; padding: 0 5px; }
-    .mobile-menu-body { display: flex; flex-direction: column; padding: 1rem 1.25rem; height: 100%; }
-
-    .mobile-menu .navbar-nav .nav-link { font-size: 1.8rem; font-weight: 700; color: #f5f5f5 !important; padding: 0.4rem 0 !important; }
-    .mobile-menu .navbar-nav .nav-link.active { color: #4fc3f7 !important; }
-    .mobile-menu .btn-phone { display: inline-block; margin-top: 0.75rem; padding: 0.65rem 1rem; border: 1px solid rgba(255,255,255,0.35); border-radius: 999px; color: #fff !important; }
-.mobile-menu .btn-phone:hover { background: rgba(255,255,255,0.08); }
-}
-
-
-/* Removed duplicate - already defined above */
-
-.property-card {
-    background: #fff;
-    border-radius: 16px;
-    overflow: hidden;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-    height: 100%;
-    width: 100%;
-    display: block;
-    position: relative; /* needed for overlay info */
-}
-
-/* Property card interactions */
-.property-card {
-    cursor: pointer;
-}
-
-.property-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 12px 15px rgba(0, 0, 0, 0.2);
-}
-
-.property-image {
-    position: relative;
-    overflow: hidden;
-    height: inherit; /* Use responsive heights defined above */
-}
-
-.property-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.3s ease;
-}
-
-.property-card:hover .property-image img {
-    transform: scale(1.05);
-}
-
-/* Overlayed info similar to reference */
-.property-info {
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    padding: 1rem 1.25rem;
-    color: #fff;
-    background: linear-gradient(180deg, rgba(0,0,0,0.0) 0%, rgba(0,0,0,0.35) 25%, rgba(0,0,0,0.55) 100%);
-}
-
-.price-value,
-.address-value,
-.price-label,
-.address-label { color: #fff; }
-
-.property-price {
-    margin-bottom: 1rem;
-}
-
-.price-label {
-    font-size: 0.875rem;
-    color: #666;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    font-weight: 600;
-}
-
-.price-value {
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: #333;
-    margin: 0.25rem 0 0 0;
-}
-
-/* Property card interactions */
-.property-address {
-    margin-bottom: 1rem;
-}
-
-.address-label {
-    font-size: 0.875rem;
-    color: #666;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    font-weight: 600;
-}
-
-.address-value {
-    color: #555;
-    margin: 0.25rem 0 0 0;
-    line-height: 1.5;
-}
-
-.footer {
-    background-color: #fff !important;
-    padding: 1.25rem 0 1rem;
-    margin-top: 2rem;
-}
-
-.footer-top {
-    padding-bottom: 0.75rem;
-    border-bottom: none;
-    margin-bottom: 0.75rem;
-}
-
-.footer-contact p {
-    color: #111;
-    margin-bottom: 0.5rem;
-}
-
-.footer-social {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    gap: 2rem;
-}
-
-.social-link {
-    color: #666;
-    text-decoration: none;
-    font-weight: 500;
-    transition: color 0.3s ease;
-}
-
-.social-link:hover {
-    color: #007bff;
-}
-
-.footer-middle {
-    text-align: left;
-    padding: 0.5rem 0;
-}
-
-/* Let footer stretch edge-to-edge like the reference */
-.footer .container {
-    max-width: 100% !important;
-}
-
-/* Keep center alignment on very small screens */
-@media (max-width: 575px) {
-    .footer-middle { text-align: center; }
-}
-
-.footer-logo {
-    font-size: clamp(2rem, 6vw, 2.5rem) !important;
-    font-weight: 800;
-    color: #000;
-    margin: 0;
-    line-height: 0.85;
-}
-
-/* Responsive footer logo sizing */
-@media (max-width: 575px) {
-    .footer-logo {
-        font-size: clamp(1.25rem, 7vw, 1.75rem);
-    }
-}
-
-.footer-bottom {
-    padding-top: 0.75rem;
-    border-top: none;
-}
-
-.footer-copyright {
-    color: #666;
-    font-size: 0.875rem;
-}
-
-.footer-link {
-    color: #007bff;
-    text-decoration: none;
-    transition: color 0.3s ease;
-}
-
-.footer-link:hover {
-    color: #0056b3;
-}
-
-.footer-legal {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    gap: 1rem;
-}
-
-.property-detail-section {
-    padding: 3rem 0;
-}
-
-/* Contact page map embed */
-.map-embed {
-    border-radius: 16px;
-    overflow: hidden;
-    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
-    height: 480px; /* medium desktop height */
-    width: 100%;
-}
-/* Tablet medium height */
-@media (max-width: 991px) {
-    .map-embed { height: 380px; }
-}
-.map-embed iframe {
-    width: 100%;
-    height: 100%;
-    border: 0;
-    display: block;
-}
-@media (max-width: 575px) {
-    .map-embed { height: 300px; }
-}
-
-.property-detail-title {
-    font-size: 3rem;
-    font-weight: 700;
-    text-align: center;
-    margin-bottom: 2rem;
-    color: #333;
-}
-
-.property-hero-image {
-    width: 100%;
-    max-width: 800px;
-    margin: 0 auto;
-    border-radius: 16px;
-    overflow: hidden;
-    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
-}
-
-.property-hero-image img {
-    width: 100%;
-    height: auto;
-    display: block;
-    object-fit: cover;
-}
-
-.property-gallery {
-    margin-bottom: 3rem;
-}
-
-.gallery-item {
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    transition: all 0.3s ease;
-    height: 280px;
-    margin-bottom: 1rem;
-}
-
-.gallery-item:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-}
-
-.gallery-item img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.3s ease;
-}
-
-.gallery-item:hover img {
-    transform: scale(1.05);
-}
-
-@media (min-width: 1200px) {
-    .gallery-item {
-        height: 300px;
-    }
-}
-
-@media (min-width: 992px) and (max-width: 1199px) {
-    .gallery-item {
-        height: 250px;
-    }
-}
-
-.property-info-sidebar {
-    background-color: #f8f9fa;
-    padding: 2rem;
-    border-radius: 12px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-    position: sticky;
-    top: 100px;
-}
-
-.property-detail-price {
-    margin-bottom: 1.5rem;
-    padding-bottom: 1.5rem;
-    border-bottom: 1px solid #e9ecef;
-}
-
-.property-detail-price .price-label {
-    font-size: 0.875rem;
-    color: #666;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    font-weight: 600;
-    margin-bottom: 0.5rem;
-    display: block;
-}
-
-.property-detail-price .price-value {
-    font-size: 2.5rem;
-    font-weight: 700;
-    color: #333;
-    margin: 0;
-}
-
-.property-detail-address {
-    margin-bottom: 2rem;
-    padding-bottom: 2rem;
-    border-bottom: 1px solid #e9ecef;
-}
-
-.property-detail-address .address-label {
-    font-size: 0.875rem;
-    color: #666;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    font-weight: 600;
-    margin-bottom: 0.5rem;
-    display: block;
-}
-
-.property-detail-address .address-value {
-    color: #555;
-    margin: 0;
-    line-height: 1.6;
-    font-size: 1.1rem;
-}
-
-.property-actions {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-}
-
-.property-actions .btn {
-    padding: 1rem 1.5rem;
-    font-weight: 600;
-    border-radius: 8px;
-    transition: all 0.3s ease;
-    text-decoration: none;
-    text-align: center;
-    border: none;
-}
-
-.property-actions .btn-primary {
-    background-color: #007bff;
-    color: white;
-}
-
-.property-actions .btn-primary:hover {
-    background-color: #0056b3;
-    transform: translateY(-2px);
-}
-
-.property-actions .btn-outline-primary {
-    border: 2px solid #007bff;
-    color: #007bff;
-    background-color: transparent;
-}
-
-.property-actions .btn-outline-primary:hover {
-    background-color: #007bff;
-    color: white;
-    transform: translateY(-2px);
-}
-
-.property-description {
-    background-color: #fff;
-    padding: 2.5rem;
-    border-radius: 12px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-}
-
-.property-description .lead {
-    font-size: 1.25rem;
-    font-weight: 500;
-    color: #555;
-    margin-bottom: 2rem;
-    line-height: 1.7;
-}
-
-.property-description p {
-    font-size: 1.1rem;
-    line-height: 1.8;
-    color: #666;
-    margin-bottom: 1.5rem;
-}
-
-@media (max-width: 992px) {
-    .property-detail-info {
-        padding-left: 0;
-        margin-top: 2rem;
-    }
-    
-    .property-detail-title {
-        font-size: 2.5rem;
-    }
-    
-    .property-detail-price .price-value {
-        font-size: 2rem;
-    }
-    
-    .property-info-sidebar {
-        margin-top: 3rem;
-        position: static;
-    }
-    
-    .property-hero-image {
-        max-width: 100%;
-    }
-}
-
-@media (max-width: 768px) {
-    .property-detail-section {
-        padding: 2rem 0;
-    }
-    
-    .property-detail-title {
-        font-size: 2rem;
-        margin-bottom: 1.5rem;
-    }
-    
-    .property-hero-image {
-        margin-bottom: 2rem;
-        border-radius: 12px;
-    }
-    
-    .property-gallery {
-        margin-bottom: 2rem;
-    }
-    
-    .gallery-item {
-        height: 220px;
-        margin-bottom: 1rem;
-        border-radius: 10px;
-    }
-    
-    .gallery-item:hover {
-        transform: translateY(-3px);
-    }
-    
-    .property-description {
-        padding: 1.5rem;
-        margin-bottom: 2rem;
-    }
-    
-    .property-description .lead {
-        font-size: 1.1rem;
-        margin-bottom: 1.5rem;
-    }
-    
-    .property-description p {
-        font-size: 1rem;
-        line-height: 1.6;
-        margin-bottom: 1.25rem;
-    }
-    
-    .property-info-sidebar {
-        padding: 1.5rem;
-        margin-top: 0;
-    }
-    
-    .property-detail-price .price-value {
-        font-size: 1.75rem;
-    }
-    
-    .property-detail-address .address-value {
-        font-size: 1rem;
-    }
-    
-    .property-actions {
-        flex-direction: column;
-        gap: 0.75rem;
-    }
-    
-    .property-actions .btn {
-        width: 100%;
-        text-align: center;
-        padding: 0.875rem 1rem;
-        font-size: 0.95rem;
-    }
-    
-    .row.mb-5 {
-        margin-bottom: 2rem !important;
-    }
-}
-
-@media (max-width: 576px) {
-    .property-detail-section {
-        padding: 1.5rem 0;
-    }
-    
-    .property-detail-title {
-        font-size: 1.75rem;
-        margin-bottom: 1rem;
-        padding: 0 1rem;
-    }
-    
-    .property-hero-image {
-        margin: 0 -15px 1.5rem -15px;
-        border-radius: 0;
-    }
-    
-    .property-gallery {
-        margin: 0 -15px 1.5rem -15px;
-        padding: 0 15px;
-    }
-    
-    .gallery-item {
-        height: 200px;
-        border-radius: 8px;
-        margin-bottom: 1rem;
-    }
-    
-    .gallery-item:hover {
-        transform: translateY(-2px);
-    }
-    
-    .property-description {
-        padding: 1rem;
-        margin: 0 -15px 1.5rem -15px;
-        border-radius: 0;
-    }
-    
-    .property-description .lead {
-        font-size: 1rem;
-        margin-bottom: 1rem;
-    }
-    
-    .property-description p {
-        font-size: 0.95rem;
-        line-height: 1.5;
-        margin-bottom: 1rem;
-    }
-    
-    .property-info-sidebar {
-        padding: 1rem;
-        margin: 0 -15px;
-        border-radius: 0;
-        box-shadow: none;
-        border-top: 1px solid #e9ecef;
-    }
-    
-    .property-detail-price .price-value {
-        font-size: 1.5rem;
-    }
-    
-    .property-detail-address .address-value {
-        font-size: 0.95rem;
-    }
-    
-    .property-actions .btn {
-        padding: 1rem;
-        font-size: 1rem;
-        font-weight: 600;
-    }
-    
-    .btn-outline-secondary {
-        margin: 0 1rem 1rem 1rem;
-        font-size: 0.9rem;
-        padding: 0.5rem 1rem;
-    }
-    
-    .container {
-        padding-left: 15px;
-        padding-right: 15px;
-    }
-    
-    .main-content {
-        margin-top: 70px;
-    }
-    
-    .property-actions .btn {
-        min-height: 48px;
-        touch-action: manipulation;
-    }
-    
-    .property-description {
-        text-align: left;
-    }
-    
-    .property-description .lead {
-        text-align: left;
-        font-weight: 500;
-    }
-}
-
-@media (max-width: 320px) {
-    .property-detail-title {
-        font-size: 1.5rem;
-    }
-    
-    .property-detail-price .price-value {
-        font-size: 1.25rem;
-    }
-    
-    .property-description {
-        padding: 0.75rem;
-    }
-    
-    .property-info-sidebar {
-        padding: 0.75rem;
-    }
-    
-    .property-gallery {
-        padding: 0 10px;
-    }
-    
-    .gallery-item {
-        height: 160px;
-        border-radius: 6px;
-        margin-bottom: 0.75rem;
-    }
-    
-    .gallery-item:hover {
-        transform: none;
-    }
-}
-
-::-webkit-scrollbar {
-    width: 8px;
-}
-
-::-webkit-scrollbar-track {
-    background: #f1f1f1;
-    border-radius: 10px;
-}
-
-::-webkit-scrollbar-thumb {
-    background: #c1c1c1;
-    border-radius: 10px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-    background: #a8a8a8;
-}
-
-@media (max-width: 768px) {
-    .footer-social {
-        justify-content: flex-start;
-        margin-top: 1rem;
-    }
-    
-    .footer-legal {
-        justify-content: flex-start;
-        margin-top: 1rem;
-        flex-wrap: wrap;
-    }
-    
-    .footer-logo {
-        font-size: 2rem;
-    }
-    
-    .page-title {
-        font-size: 2rem;
-    }
-    
-    .properties-section {
-        padding: 2rem 0;
-    }
-    
-    .property-card {
-        margin-bottom: 1.5rem;
-    }
-    
-    .main-content {
-        padding-top: 90px;
-    }
-    
-    .container {
-        padding-left: 20px;
-        padding-right: 20px;
-    }
-}
-
-@media (max-width: 767px) {
-    .footer-logo {
-        font-size: 1.75rem;
-    }
-    
-    .page-title {
-        font-size: 1.75rem;
-        margin-bottom: 2rem;
-    }
-    
-    .property-card {
-        margin-bottom: 2rem;
-        max-width: 100%;
-    }
-    
-    .property-info {
-        padding: 1.25rem;
-    }
-    
-    .price-value {
-        font-size: 1.25rem;
-    }
-    
-    .property-image {
-        height: 240px;
-    }
-    
-    .container {
-        padding-left: 15px;
-        padding-right: 15px;
-        max-width: 100%;
-    }
-    
-    .main-content {
-        padding-top: 100px;
-    }
-    
-    .properties-section {
-        padding: 1.5rem 0 2.5rem;
-    }
-    
-    .navbar-nav {
-        text-align: center;
-        margin-top: 1rem;
-    }
-    
-    .navbar-nav .nav-link {
-        padding: 0.75rem 1rem !important;
-        margin: 0.25rem 0;
-    }
-    
-    .navbar-text {
-        text-align: center;
-        margin-top: 1rem;
-    }
-    
-    .navbar-toggler {
-        border: none;
-        padding: 0.25rem 0.5rem;
-    }
-    
-    .navbar-toggler:focus {
-        box-shadow: none;
-    }
-    
-    .row.g-3 {
-        margin: 0 -0.75rem;
-    }
-    
-    .row.g-3 > * {
-        padding: 0 0.75rem;
-        margin-bottom: 1.5rem;
-    }
-    
-    /* Let Bootstrap handle columns; no forced 100% width at md */
-    
-    .row.g-3 .col-12 {
-        flex-basis: 100% !important;
-        max-width: 100% !important;
-    }
-}
-
-/* Additional mobile-first approach */
-@media (max-width: 576px) {
-    .property-image {
-        height: 220px;
-    }
-    
-    .page-title {
-        font-size: 1.5rem;
-    }
-    
-    .container {
-        padding-left: 10px;
-        padding-right: 10px;
-    }
-    
-    .properties-section {
-        padding: 1rem 0;
-    }
-    
-    /* Keep single column on extra-small screens only for readability */
-    .row > [class*="col-"] {
-        flex: 0 0 100% !important;
-        max-width: 100% !important;
-        width: 100% !important;
-        margin-bottom: 1rem;
-    }
-    
-    .row {
-        margin-left: -5px !important;
-        margin-right: -5px !important;
-    }
-    
-    .row > * {
-        padding-left: 5px !important;
-        padding-right: 5px !important;
-    }
-}
-
-/* Ensure white text over images inside cards (override generic colors below) */
-.property-card .property-info .price-label,
-.property-card .property-info .address-label,
-.property-card .property-info .price-value,
-.property-card .property-info .address-value {
-	color: #fff !important;
-	text-shadow: 0 1px 2px rgba(0,0,0,0.35);
-}
-
-/* When the mobile menu is open (toggled via JS), make links dark on light background */
-body.menu-open .navbar-nav .nav-link,
-body.menu-open .phone-link { 
-    color: #f5f5f5 !important; 
-}
-
-body.menu-open .navbar-nav .nav-link::after {
-    background-color: #4fc3f7;
-}
-
-/* Explicit footer logo sizes to ensure correct scaling */
-@media (min-width: 768px) {
-    .footer-logo {
-        font-size: 9rem !important; /* desktop/tablet */
-        line-height: 0.85;
-    }
-}
-@media (max-width: 767.98px) {
-    .footer-logo {
-        font-size: 2rem !important; /* mobile */
-        line-height: 0.85;
-    }
-}
-
-/* ------------------------------
-   Mobile navbar: left toggle + modern animations
-   ------------------------------ */
-/* Replace default hamburger with custom animated one */
-.navbar-toggler-icon { 
-    background-image: none !important; /* remove Bootstrap bg */
-    position: relative;
-    width: 24px; 
-    height: 2px; 
-    background-color: currentColor; /* middle bar */
-    transition: background-color 0.2s ease, transform 0.25s ease;
-}
-.navbar-toggler-icon::before,
-.navbar-toggler-icon::after {
-    content: '';
-    position: absolute;
-    left: 0;
-    width: 24px;
-    height: 2px;
-    background-color: currentColor;
-    transition: transform 0.25s ease, opacity 0.2s ease, background-color 0.2s ease;
-}
-.navbar-toggler-icon::before { top: -6px; }
-.navbar-toggler-icon::after  { top:  6px; }
-
-/* Colors for light/dark headers */
-.navbar-toggler { color: #111; }
-body.dark-header .navbar-toggler { color: #f5f5f5; }
-
-/* Animate into an X when menu is open */
-body.menu-open .navbar-toggler-icon { background-color: transparent; }
-body.menu-open .navbar-toggler-icon::before { transform: translateY(6px) rotate(45deg); }
-body.menu-open .navbar-toggler-icon::after  { transform: translateY(-6px) rotate(-45deg); }
-
-/* Position brand LEFT and toggle RIGHT on mobile */
-@media (max-width: 767.98px) {
-  .navbar .container-md { display: flex; align-items: center; justify-content: space-between; }
-  .navbar-brand   { order: 1; margin-right: auto; }
-  .navbar-toggler { order: 2; margin-left: 0.5rem; border: none; padding: 0.5rem; }
-  .navbar-collapse{ order: 3; width: 100%; }
-}
-
-/* Smooth collapse animation */
-@media (max-width: 767.98px) {
-  .navbar-collapse { 
-    transform: translateY(-8px); 
-    opacity: 0; 
-    transition: transform 0.25s ease, opacity 0.25s ease;
-  }
-  .navbar-collapse.show { 
-    transform: translateY(0); 
-    opacity: 1; 
-  }
-}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Team - RealVantage</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Team page styles (scoped to this file) */
+        /* Reduce top gap under fixed header and tighten title spacing */
+        .team-section { padding: clamp(1rem, 2.5vw, 2rem) 0; }
+        .team-section .page-title { font-size: clamp(2.25rem, 3vw, 3rem); margin: 0 0 0.75rem; text-align: left; }
+        .team-section .text-muted { margin-bottom: 1rem !important; }
+        /* Hide underline effect only inside slide-in mobile menu to avoid long blue line */
+        .mobile-menu .navbar-nav .nav-link::after { display: none !important; }
+        
+        /* Mobile menu close button styling */
+        .mobile-menu-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem;
+            background: #1f1f1f;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .menu-close {
+            background: transparent;
+            border: none;
+            color: #fff;
+            font-size: 2rem;
+            font-weight: 300;
+            line-height: 1;
+            padding: 0.25rem 0.5rem;
+            cursor: pointer;
+            transition: color 0.2s ease, transform 0.2s ease;
+        }
+        
+        .menu-close:hover {
+            color: #4fc3f7;
+            transform: scale(1.1);
+        }
+        
+        .mobile-menu-header .navbar-brand img {
+            height: 40px;
+        }
+        
+        /* Ensure toggle button is visible on mobile and tablet */
+        @media (max-width: 991px) {
+            .navbar-toggler,
+            .menu-toggle {
+                display: block !important;
+                visibility: visible !important;
+                opacity: 1 !important;
+            }
+            
+            /* Hide any extra navigation elements on mobile/tablet */
+            .navbar-nav.show { display: none !important; }
+            .mobile-menu .navbar-nav .nav-link::after { display: none !important; }
+            
+            /* Completely disable nav-link underlines on mobile/tablet */
+            .navbar-nav .nav-link::after { display: none !important; }
+            .navbar-nav .nav-link:hover::after { display: none !important; }
+            .navbar-nav .nav-link.active::after { display: none !important; }
+            
+            /* Ensure main navbar is collapsed on mobile/tablet */
+            #navbarNav { display: none !important; }
+            .navbar-collapse { display: none !important; }
+            .navbar-collapse.show { display: none !important; }
+            
+            /* Hide any navbar-nav that might leak through */
+            .navbar-nav { display: none !important; }
+        }
+        
+        /* Ensure mobile menu is completely hidden on desktop */
+        @media (min-width: 992px) {
+            .mobile-menu,
+            .mobile-menu.open { 
+                display: none !important; 
+                visibility: hidden !important;
+                opacity: 0 !important;
+                transform: translateX(-100%) !important;
+            }
+            #navbarNav { display: flex !important; }
+        }
+        
+        /* Ensure Bootstrap navbar collapse doesn't show on desktop */
+        @media (min-width: 992px) {
+            .navbar-collapse { display: flex !important; }
+            .navbar-collapse.collapse { display: flex !important; }
+            .navbar-collapse.collapse.show { display: flex !important; }
+            .navbar-collapse.collapsing { display: flex !important; }
+        }
+        
+        /* Hide any stray navigation elements that might appear on desktop */
+        @media (min-width: 992px) {
+            .navbar-nav.show { display: none !important; }
+            .collapse.show { display: flex !important; }
+            /* Hide any mobile menu elements that might leak through */
+            .mobile-menu * { display: none !important; }
+            body.menu-open .mobile-menu { display: none !important; }
+            
+            /* Force navbar to be horizontal on desktop */
+            .navbar-nav { 
+                flex-direction: row !important; 
+                position: static !important;
+                width: auto !important;
+            }
+            .navbar-nav .nav-item {
+                display: inline-block !important;
+            }
+            
+            /* Hide any vertical navigation that might appear */
+            .navbar-collapse.show .navbar-nav {
+                flex-direction: row !important;
+                position: static !important;
+            }
+            
+            /* Disable navbar toggler on desktop only */
+            .navbar-toggler,
+            .menu-toggle,
+            .navbar-toggler-icon,
+            button[aria-controls="mobileMenuCustom"] {
+                display: none !important;
+                visibility: hidden !important;
+                opacity: 0 !important;
+            }
+            
+            /* Ensure navbar collapse is always visible and horizontal on desktop */
+            #navbarNav {
+                display: flex !important;
+                flex-basis: auto !important;
+            }
+            #navbarNav .navbar-nav {
+                flex-direction: row !important;
+            }
+            
+            /* Prevent any Bootstrap mobile classes from affecting desktop */
+            .d-lg-none {
+                display: none !important;
+            }
+            
+            /* Force main navbar to always be visible and horizontal */
+            .navbar-expand-lg .navbar-nav {
+                flex-direction: row !important;
+                display: flex !important;
+            }
+            
+            .navbar-expand-lg .navbar-collapse {
+                display: flex !important;
+                flex-basis: auto !important;
+            }
+            
+            /* Hide any navigation elements outside the main navbar */
+            body > .nav-link,
+            body > .navbar-nav,
+            main .nav-link:not(.team-card .nav-link) {
+                display: none !important;
+            }
+            
+            /* Ensure only the navbar navigation is visible */
+            .navbar .navbar-nav {
+                display: flex !important;
+                flex-direction: row !important;
+            }
+        }
+        
+        .team-card {
+            background: #fff;
+            border: 2px solid #000;
+            border-radius: 16px;
+            box-shadow: none;
+            padding: clamp(1rem, 2vw, 1.5rem);
+            height: 100%;
+            transition: none;
+            margin-bottom: 2rem;
+            /* Mobile-first: centered card layout */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+        .team-card:hover { /* No hover effects for cleaner design */ }
+        
+        .team-photo {
+            width: 100%;
+            max-width: 200px;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 12px;
+            box-shadow: none;
+            margin-bottom: 1.5rem;
+        }
+        .team-name {
+            font-size: clamp(1.5rem, 3vw, 2rem);
+            font-weight: 600;
+            color: #000;
+            margin-bottom: 0.25rem;
+        }
+        .team-role {
+            color: #666;
+            font-style: normal;
+            font-weight: 400;
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+        }
+        .team-bio {
+            color: #666;
+            font-size: 1rem;
+            line-height: 1.6;
+            margin: 0;
+            max-width: 65ch;
+        }
+        
+        /* Switch to media-object layout on larger screens */
+        @media (min-width: 768px) {
+            .team-section .container {
+                max-width: 900px !important;
+                margin: 0 auto;
+            }
+            
+            .team-card { 
+                display: grid;
+                grid-template-columns: 350px 1fr;
+                gap: 1rem 2rem;
+                align-items: start;
+                text-align: left;
+                padding: 1.5rem;
+                margin-bottom: 1.5rem;
+                border: 2px solid #000;
+                border-radius: 16px;
+                box-shadow: none;
+                background: #fff;
+                max-width: 100%;
+                width: fit-content;
+                margin-left: auto;
+                margin-right: auto;
+            }
+            .team-photo { 
+                max-width: 350px; 
+                height: 350px; 
+                margin-bottom: 0;
+                grid-row: 1 / span 3;
+                border-radius: 12px;
+            }
+            .team-name {
+                font-size: 1.75rem;
+                font-weight: 600;
+                margin-bottom: 0.25rem;
+            }
+            .team-role {
+                font-size: 1rem;
+                margin-bottom: 1rem;
+                font-style: italic;
+                color: #666;
+            }
+            .team-bio {
+                font-size: 0.95rem;
+                line-height: 1.6;
+                color: #555;
+                max-width: 65ch;
+            }
+        }
+        @media (min-width: 1200px) {
+            .team-section .container {
+                max-width: 1000px !important;
+            }
+            
+            .team-card { 
+                grid-template-columns: 380px 1fr;
+                gap: 1rem 2.5rem;
+                margin-bottom: 1.75rem;
+                padding: 2rem;
+                border: 2px solid #000;
+                border-radius: 16px;
+                background: #fff;
+                width: fit-content;
+                margin-left: auto;
+                margin-right: auto;
+            }
+            .team-photo { 
+                max-width: 380px; 
+                height: 380px; 
+            }
+            .team-name {
+                font-size: 2rem;
+            }
+            .team-role {
+                font-size: 1.1rem;
+            }
+            .team-bio {
+                font-size: 1rem;
+                max-width: 65ch;
+            }
+        }
+    </style>
+</head>
+<body class="dark-header nav-dark">
+    <nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top shadow-sm">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <img src="https://framerusercontent.com/images/9dE4ik6QhUMAp0iYpZAfulLYSs.png" alt="RealVantage Logo" height="40">
+            </a>
+
+            <button class="navbar-toggler menu-toggle d-lg-none" type="button" aria-controls="mobileMenuCustom" aria-expanded="false" aria-label="Toggle navigation menu">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav mx-auto">
+                    <li class="nav-item"><a class="nav-link" href="home.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="index.html">Properties</a></li>
+                    <li class="nav-item"><a class="nav-link" href="home.html#about">About Us</a></li>
+                    <li class="nav-item"><a class="nav-link" href="home.html#services">Services</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="team.html">Team</a></li>
+                    <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+                </ul>
+
+                <!-- Phone number -->
+                <div class="navbar-text">
+                    <a href="tel:+17783213122" class="phone-link">
+                        <i class="fas fa-phone me-2"></i>
+                        (778) 321-3122
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Custom mobile slide-in menu -->
+    <div class="mobile-menu d-lg-none" id="mobileMenuCustom" aria-hidden="true">
+        <div class="mobile-menu-header">
+            <a class="navbar-brand" href="index.html">
+                <img src="https://framerusercontent.com/images/9dE4ik6QhUMAp0iYpZAfulLYSs.png" alt="RealVantage Logo" height="40">
+            </a>
+            <button class="menu-close" aria-label="Close menu">&times;</button>
+        </div>
+        <div class="mobile-menu-body">
+            <ul class="navbar-nav">
+                <li class="nav-item"><a class="nav-link" href="home.html">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="index.html">Properties</a></li>
+                <li class="nav-item"><a class="nav-link" href="home.html#about">About Us</a></li>
+                <li class="nav-item"><a class="nav-link" href="home.html#services">Services</a></li>
+                <li class="nav-item"><a class="nav-link active" href="team.html">Team</a></li>
+                <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+                <li class="nav-item mt-3"><a href="tel:+17783213122" class="phone-link btn-phone">(778) 321-3122</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <section class="team-section">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <h1 class="page-title">Our Team</h1>
+                        <p class="text-left text-muted mb-4">Meet the people behind RealVantage.</p>
+                    </div>
+                </div>
+                <div class="row g-2">
+                    <!-- John Harrison -->
+                    <div class="col-12">
+                        <div class="team-card h-100 w-100">
+                            <img class="team-photo" src="https://framerusercontent.com/images/3osDZRIBVWNglP7F0JYZlFMtE.jpg" alt="John Harrison - Senior Broker">
+                            <h3 class="team-name">John Harrison</h3>
+                            <div class="team-role">Senior Broker</div>
+                            <p class="team-bio">John Harrison is a seasoned professional with over 15 years of experience in the real estate industry, currently serving as a Senior Broker at RealVantage. Known for his exceptional market insight and client-first approach, John has a proven track record of successfully closing high-value deals and guiding clients through complex transactions. His expertise spans residential, commercial, and investment properties, making him a versatile and reliable resource for all real estate needs. At RealVantage, John is committed to delivering personalized service and achieving optimal results for his clients, leveraging his deep understanding of market trends and strong negotiation skills.</p>
+                        </div>
+                    </div>
+                    <!-- Margaret Sinclair -->
+                    <div class="col-12">
+                        <div class="team-card h-100 w-100">
+                            <img class="team-photo" src="https://framerusercontent.com/images/0kE0nZ2vYrJDxqZo7vKBdvhTunk.jpg?scale-down-to=1024" alt="Margaret Sinclair - Client Relations Manager">
+                            <h3 class="team-name">Margaret Sinclair</h3>
+                            <div class="team-role">Client Relations Manager</div>
+                            <p class="team-bio">Margaret Sinclair brings over a decade of experience in the real estate industry to her role as Client Relations Manager at RealVantage. With a passion for fostering strong, long-lasting relationships, Margaret excels in ensuring that every client receives the highest level of personalized service. Her extensive knowledge of the market, combined with her exceptional communication skills, allows her to understand and anticipate clients' needs effectively. At RealVantage, Margaret is dedicated to creating a seamless and positive experience for all clients, from initial consultation to closing and beyond. Her commitment to excellence and client satisfaction makes her an invaluable asset to the RealVantage team.</p>
+                        </div>
+                    </div>
+                    <!-- Ethan Parker -->
+                    <div class="col-12">
+                        <div class="team-card h-100 w-100">
+                            <img class="team-photo" src="https://framerusercontent.com/images/3wWJ2SBuytguIRGDOkVM8wKtSfY.jpg" alt="Ethan Parker - Real Estate Agent">
+                            <h3 class="team-name">Ethan Parker</h3>
+                            <div class="team-role">Real Estate Agent</div>
+                            <p class="team-bio">Ethan Parker is a dynamic and dedicated Real Estate Agent at RealVantage, bringing fresh energy and a client-focused approach to the team. With a background in marketing and a keen eye for detail, Ethan excels in helping clients navigate the competitive real estate market. His commitment to understanding each client's unique needs and his ability to provide tailored solutions ensure a smooth and successful transaction process. At RealVantage, Ethan's innovative strategies and relentless work ethic make him a trusted advisor for buyers and sellers alike. Whether you're looking to find your dream home or maximize the value of your property, Ethan Parker is here to guide you every step of the way.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer (shared) -->
+    <footer class="footer bg-light">
+        <div class="container">
+            <div class="row footer-top">
+                <div class="col-md-6">
+                    <div class="footer-contact">
+                        <p class="mb-1">128 Prestige Plaza, Vancouver, BC</p>
+                        <p class="mb-1">Phone: (778) 321-3122</p>
+                        <p class="mb-0">Email: hi@realvantage.com</p>
+                    </div>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <div class="footer-social">
+                        <a href="#" class="social-link me-3">Facebook</a>
+                        <a href="#" class="social-link me-3">Instagram</a>
+                        <a href="#" class="social-link me-3">Youtube</a>
+                        <a href="#" class="social-link">Twitter</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row footer-middle">
+                <div class="col-12 text-center">
+                    <h1 class="footer-logo">RealVantage</h1>
+                </div>
+            </div>
+
+            <div class="row footer-bottom">
+                <div class="col-md-6">
+                    <p class="mb-0 footer-copyright">
+                        © 2024. All Rights Reserved. Designed & Built by 
+                        <a href="https://www.framerxplore.com/" class="footer-link">FramerXplore</a>
+                    </p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <div class="footer-legal">
+                        <a href="#" class="footer-link me-3">Change Log</a>
+                        <a href="#" class="footer-link me-3">Licenses</a>
+                        <a href="#" class="footer-link me-3">Legal Disclaimer</a>
+                        <a href="#" class="footer-link">Cookie Policy</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom JS -->
+    <script src="script.js"></script>
+</body>
+</html>
