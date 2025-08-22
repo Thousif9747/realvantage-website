@@ -1,8 +1,5 @@
 loadTime = performance.now();
   console.log(`Page loaded in ${loadTime.toFixed(2)}ms`);
-
-
-// Public API
 window.RealVantage = {
   showPropertyModal,
   showNotification,
@@ -10,26 +7,18 @@ window.RealVantage = {
   showLoading,
   hideLoading
 };
-// RealVantage site interactions
-// Cleaned and de-duplicated. Adds reliable detection for "Desktop site" on mobile Chrome
-
 (function immediateDesktopPreferenceApply() {
   try {
     const params = new URLSearchParams(window.location.search);
     const preferDesktop = params.get('desktop');
     if (preferDesktop === '1') localStorage.setItem('rv_desktop_layout', '1');
     if (preferDesktop === '0') localStorage.removeItem('rv_desktop_layout');
-
-    // Honor saved preference only on widths >= 768px (never force desktop on small phones)
     if (localStorage.getItem('rv_desktop_layout') === '1' && window.innerWidth >= 768) {
       document.body.classList.add('force-desktop-layout');
     }
   } catch (e) {
-    // no-op
   }
 })();
-
-// Boot
 document.addEventListener('DOMContentLoaded', function() {
   initDesktopSiteDetection();
   initNavigation();
@@ -37,15 +26,11 @@ document.addEventListener('DOMContentLoaded', function() {
   initScrollEffects();
   initMobileMenu();
 });
-
 function initDesktopSiteDetection() {
   const isMobileDevice = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
   const windowWidth = window.innerWidth;
   const screenWidth = window.screen.width;
-
-  // Simple and reliable desktop site detection
   const isDesktopSiteRequested = detectDesktopSiteRequest(isMobileDevice, windowWidth, screenWidth);
-
   console.log('Detection:', {
     isMobileDevice,
     windowWidth,
@@ -58,8 +43,6 @@ function initDesktopSiteDetection() {
   } else {
     enableResponsiveLayout();
   }
-
-  // Add resize listener (only once)
   if (!window.desktopSiteListenerAdded) {
     window.addEventListener('resize', debounce(initDesktopSiteDetection, 300));
     window.desktopSiteListenerAdded = true;
@@ -67,25 +50,17 @@ function initDesktopSiteDetection() {
 }
 
 function detectDesktopSiteRequest(isMobileDevice, windowWidth, screenWidth) {
-  // URL and user preference overrides
   try {
     const params = new URLSearchParams(location.search);
     if (params.get('desktop') === '1') return true;
     if (params.get('desktop') === '0') return false;
   } catch (e) {}
-
-  // Enforce: saved preference only applies when viewport is >= 768px
   if (localStorage.getItem('rv_desktop_layout') === '1' && windowWidth >= 768) {
     return true;
   }
-
-  // If not a mobile device, use natural responsive behavior
   if (!isMobileDevice) {
-    return windowWidth >= 992; // Standard desktop breakpoint
+    return windowWidth >= 992; 
   }
-
-  // Mobile device case: only treat as desktop when the viewport itself is truly wide
-  // These checks avoid false positives and keep phones responsive by default
   if (window.visualViewport && window.visualViewport.width >= 980) return true;
   if (windowWidth >= 980) return true;
   if (window.devicePixelRatio && (windowWidth / window.devicePixelRatio) >= 980) return true;
@@ -96,8 +71,6 @@ function detectDesktopSiteRequest(isMobileDevice, windowWidth, screenWidth) {
 function enableDesktopLayout() {
   document.body.classList.add('force-desktop-layout');
   console.log('🖥️ Desktop layout enabled');
-
-  // Force desktop grid layout
   setTimeout(() => {
     const propertyColumns = document.querySelectorAll('.properties-section .col-12.col-md-6');
     propertyColumns.forEach(col => {
@@ -106,12 +79,9 @@ function enableDesktopLayout() {
     });
   }, 50);
 }
-
 function enableResponsiveLayout() {
   document.body.classList.remove('force-desktop-layout');
   console.log('📱 Responsive layout enabled');
-
-  // Reset any forced styles
   const propertyColumns = document.querySelectorAll('.properties-section .col-12.col-md-6');
   propertyColumns.forEach(col => {
     col.style.flex = '';
@@ -130,7 +100,6 @@ function initNavigation() {
       navbar.classList.remove('scrolled');
     }
   });
-
   navLinks.forEach(link => {
     link.addEventListener('click', function() {
       navLinks.forEach(l => l.classList.remove('active'));
@@ -138,33 +107,26 @@ function initNavigation() {
     });
   });
 }
-
 function initPropertyCards() {
   const propertyCards = document.querySelectorAll('.property-card');
-
   propertyCards.forEach((card, index) => {
     card.style.animationDelay = `${index * 0.1}s`;
-
     card.addEventListener('click', function() {
       handlePropertyClick(card);
     });
-
     card.addEventListener('mouseenter', function() {
       this.style.cursor = 'pointer';
     });
   });
 }
-
 function handlePropertyClick(card) {
   const propertyName = card.querySelector('img').alt;
-
   const propertyPages = {
     'Seaside Escape': 'property-seaside-escape.html',
     'Vista Luxe Villa': 'property-vista-luxe-villa.html',
     'Delta Heights Estate': 'property-delta-heights-estate.html',
     'Sa Ràpita Retreat': 'property-sa-rapita-retreat.html'
   };
-
   const pageUrl = propertyPages[propertyName];
   if (pageUrl) {
     window.location.href = pageUrl;
@@ -174,7 +136,6 @@ function handlePropertyClick(card) {
     showPropertyModal(propertyName, propertyPrice, propertyAddress);
   }
 }
-
 function showPropertyModal(name, price, address) {
   const modalHTML = `
     <div class="modal fade" id="propertyModal" tabindex="-1" aria-labelledby="propertyModalLabel" aria-hidden="true">
@@ -210,20 +171,15 @@ function showPropertyModal(name, price, address) {
         </div>
       </div>
     </div>`;
-
   const existingModal = document.getElementById('propertyModal');
   if (existingModal) existingModal.remove();
-
   document.body.insertAdjacentHTML('beforeend', modalHTML);
-
   const modal = new bootstrap.Modal(document.getElementById('propertyModal'));
   modal.show();
-
   document.getElementById('propertyModal').addEventListener('hidden.bs.modal', function() {
     this.remove();
   });
 }
-
 function initScrollEffects() {
   const observerOptions = {
     threshold: 0.1,
@@ -241,7 +197,6 @@ function initScrollEffects() {
   document.querySelectorAll('.property-card').forEach(card => {
     observer.observe(card);
   });
-
   document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function(e) {
       e.preventDefault();
@@ -252,13 +207,10 @@ function initScrollEffects() {
     });
   });
 }
-
 function initMobileMenu() {
-  // Custom slide-in menu (no Bootstrap offcanvas)
   const customMenu = document.getElementById('mobileMenuCustom');
   const toggler = document.querySelector('.menu-toggle');
   const closeBtn = document.querySelector('.menu-close');
-
   if (customMenu && toggler) {
     const openMenu = () => {
       customMenu.classList.add('open');
@@ -270,29 +222,20 @@ function initMobileMenu() {
       document.body.classList.remove('menu-open');
       toggler.setAttribute('aria-expanded', 'false');
     };
-
     toggler.addEventListener('click', (e) => {
       e.preventDefault();
       if (customMenu.classList.contains('open')) closeMenu();
       else openMenu();
     });
-
     if (closeBtn) closeBtn.addEventListener('click', closeMenu);
-
-    // Close when clicking any nav link
     customMenu.querySelectorAll('.nav-link').forEach(link => {
       link.addEventListener('click', closeMenu);
     });
-
-    // Close on ESC
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape') closeMenu();
     });
-
     return;
   }
-
-  // Fallback: Bootstrap collapse (desktop and pages without custom menu)
   const navbarCollapse = document.getElementById('navbarNav');
   const bsToggler = document.querySelector('.navbar-toggler');
   if (navbarCollapse && bsToggler) {
@@ -305,7 +248,6 @@ function initMobileMenu() {
     });
   }
 }
-
 function debounce(func, wait) {
   let timeout;
   return function executedFunction(...args) {
@@ -317,24 +259,18 @@ function debounce(func, wait) {
     timeout = setTimeout(later, wait);
   };
 }
-
 function formatPhoneNumber(phoneNumber) {
-  // Keep only digits
   const cleaned = ('' + phoneNumber).replace(/\D/g, '');
-  // Format as (XXX) XXX-XXXX when there are exactly 10 digits
   const match = cleaned.match(/^(\d{3})(\d{3})(\d{4})$/);
   if (match) {
     return `(${match[1]}) ${match[2]}-${match[3]}`;
   }
-  // Fallback to original input when it doesn't match 10-digit pattern
   return phoneNumber;
 }
-
 function handleContactForm(formData) {
   console.log('Contact form submitted:', formData);
   showNotification('Thank you for your inquiry! We will contact you soon.', 'success');
 }
-
 function showNotification(message, type = 'info') {
   const notification = document.createElement('div');
   notification.className = `alert alert-${type} alert-dismissible fade show position-fixed`;
@@ -343,16 +279,13 @@ function showNotification(message, type = 'info') {
     ${message}
     <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
   `;
-
   document.body.appendChild(notification);
-
   setTimeout(() => {
     if (notification.parentNode) {
       notification.remove();
     }
   }, 5000);
 }
-
 function showLoading() {
   const loader = document.createElement('div');
   loader.id = 'pageLoader';
@@ -365,22 +298,17 @@ function showLoading() {
   `;
   document.body.appendChild(loader);
 }
-
 function hideLoading() {
   const loader = document.getElementById('pageLoader');
   if (loader) loader.remove();
 }
-
 window.addEventListener('error', function(e) {
   console.error('JavaScript error:', e.error);
 });
-
 window.addEventListener('load', function() {
   const loadTime = performance.now();
   console.log(`Page loaded in ${loadTime.toFixed(2)}ms`);
 });
-
-// Public API
 window.RealVantage = {
   showPropertyModal,
   showNotification,
