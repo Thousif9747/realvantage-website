@@ -3,7 +3,6 @@
     padding: 0;
     box-sizing: border-box;
 }
-
 body {
     font-family: 'Inter', sans-serif;
     line-height: 1.6;
@@ -12,38 +11,24 @@ body {
     overflow-x: hidden;
     transition: all 0.3s ease;
 }
-
-/* Smooth transitions for interactive elements only */
 .property-card {
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
-
 .navbar {
     transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
-
-/* Performance optimizations */
 .property-image img {
     will-change: transform;
     backface-visibility: hidden;
 }
-
 .property-card {
     will-change: transform;
     backface-visibility: hidden;
 }
-
-/* Smooth scrolling */
 html {
     scroll-behavior: smooth;
 }
 
-/* ===========================
-   CSS GRID RESPONSIVE DESIGN
-   (Using CSS Grid instead of flexbox)
-   =========================== */
-
-/* Base styles - Mobile first */
 .properties-section {
     padding: 3rem 0;
 }
@@ -55,19 +40,15 @@ html {
     margin-bottom: 3rem;
     color: #333;
 }
-
-/* Properties page title override */
 #properties .page-title {
     font-size: clamp(3.5rem, 8vw, 6.5rem);
     font-weight: 800;
     text-align: left;
-    margin: 0 auto 1.75rem; /* center container, keep bottom spacing */
+    margin: 0 auto 1.75rem;
     color: #111;
-    max-width: 1200px; /* align with grid width */
-    padding: 0 1rem;   /* align with grid side padding */
+    max-width: 1200px; 
+    padding: 0 1rem;   
 }
-
-/* CSS Grid Layout for Properties */
 .properties-grid {
     display: grid;
     grid-template-columns: 1fr;
@@ -76,61 +57,41 @@ html {
     margin: 0 auto;
     padding: 0 1rem;
 }
-
-/* Tablet and above - 2 columns */
 @media (min-width: 768px) {
     .properties-grid {
         grid-template-columns: repeat(2, 1fr);
         gap: 2.5rem;
-    }
-    
+    }    
     .page-title {
         font-size: 3.2rem;
     }
-
     .property-image {
         height: 300px;
     }
 }
-
-/* Large desktop enhancements */
 @media (min-width: 1200px) {
     .properties-grid {
         grid-template-columns: repeat(2, 1fr);
         gap: 3rem;
     }
-    
     .page-title {
         font-size: 3.5rem;
     }
-    
     .property-image {
         height: 320px;
     }
 }
-
-/* ===========================
-   DESKTOP SITE LAYOUT OVERRIDE
-   (When "Desktop site" is requested on mobile)
-   =========================== */
-
 body.force-desktop-layout {
     min-width: 1200px !important;
     overflow-x: auto !important;
 }
-
-/* Force desktop navigation */
 body.force-desktop-layout .navbar-toggler {
     display: none !important;
 }
-
-/* Force desktop navigation */
 body.force-desktop-layout .navbar-collapse {
     display: flex !important;
     visibility: visible !important;
 }
-
-/* Ensure flex layout in forced desktop mode */
 body.force-desktop-layout .navbar .navbar-nav {
     display: flex !important;
     flex-direction: row;
@@ -144,42 +105,29 @@ body.force-desktop-layout .navbar .navbar-text {
     padding-top: 0;
     border-top: 0;
 }
-
-/* Desktop navbar layout fix (Bootstrap md and up) */
 @media (min-width: 768px) {
     .navbar .navbar-collapse { display: flex !important; }
     .navbar .navbar-nav {
         display: flex !important;
         flex-direction: row;
         align-items: center;
-        justify-content: flex-start; /* align items from the left */
-        flex-wrap: nowrap; /* prevent wrapping into multiple rows */
+        justify-content: flex-start;
+        flex-wrap: nowrap; 
         width: auto;
     }
     .navbar .navbar-text {
-        margin-left: auto; /* push CTA to the right */
+        margin-left: auto; 
         text-align: right;
         margin-top: 0;
         padding-top: 0;
         border-top: 0;
     }
 }
-
-/* Desktop layout .properties-section .col-12.navbar-nav {
-    display: flex !important;
-    flex-direction: row sizing */
-/* Force desktopt .navbar-text {
-    display: block !important;
-}
-
-/* Force desktop grid - 2x2 layout */
 body.force-desktop-layout .properties-grid {
     grid-template-columns: repeat(2, 1fr) !important;
     gap: 3rem !important;
     max-width: 1200px !important;
 }
-
-/* Desktop layout sizing */
 body.force-desktop-layout .page-title {
     font-size: 3.5rem !important;
 }
@@ -196,13 +144,9 @@ body.force-desktop-layout .container,
 body.force-desktop-layout .container-md {
     max-width: 1200px !important;
 }
-
-/* Reduce gap above footer in Desktop-site mode */
 body.force-desktop-layout .footer {
     margin-top: 2rem !important;
 }
-
-/* Let content define height in Desktop-site mode to avoid large white gaps */
 body.force-desktop-layout .main-content {
     min-height: auto !important;
 }
@@ -210,19 +154,15 @@ body.force-desktop-layout .main-content {
 .navbar {
     padding: 0.5rem 0;
     transition: all 0.3s ease;
-    background-color: transparent; /* default: use Bootstrap bg classes */
+    background-color: transparent; 
     -webkit-backdrop-filter: none;
     backdrop-filter: none;
     z-index: 1060;
     border-bottom: 1px solid rgba(0,0,0,0.08);
 }
-
-/* Medium width navbar container */
 .navbar .container-md {
     max-width: 960px;
 }
-
-/* Navbar toggler - default dark for light navbar */
 .navbar-toggler {
     border: 1px solid rgba(0, 0, 0, 0.25);
     padding: 0.25rem 0.5rem;
@@ -231,60 +171,47 @@ body.force-desktop-layout .main-content {
 .navbar-toggler:focus {
     box-shadow: 0 0 0 0.2rem rgba(0, 0, 0, 0.15);
 }
-
-/* Default toggler icon (dark) */
 .navbar-toggler-icon {
     background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%280, 0, 0, 1%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
 }
-
-/* Dark header overrides */
 body.dark-header .navbar-toggler {
     border: 1px solid rgba(255, 255, 255, 0.3);
 }
-
 body.dark-header .navbar-toggler:focus {
     box-shadow: 0 0 0 0.2rem rgba(255, 255, 255, 0.25);
 }
-
 body.dark-header .navbar-toggler-icon {
     background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 1%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
 }
-
 body.dark-header .navbar {
     background-color: #1f1f1f !important;
     box-shadow: none;
 }
-
 .navbar-brand img {
-    height: 40px; /* ensure visibility like reference */
+    height: 40px;
     width: auto;
     display: inline-block;
 }
-
 .navbar-nav .nav-link {
     font-weight: 500;
-    color: #111 !important; /* default: dark text on light navbar */
+    color: #111 !important; 
     margin: 0 0.75rem;
     padding: 0.4rem 0.75rem !important;
     transition: all 0.3s ease;
     position: relative;
     font-size: 0.9rem;
 }
-
 body.dark-header .navbar-nav .nav-link {
     color: #f5f5f5 !important;
-}
-
+  }
 .navbar-nav .nav-link:hover,
 .navbar-nav .nav-link.active {
     color: #4fc3f7 !important;
 }
-
 body.dark-header .navbar-nav .nav-link:hover,
 body.dark-header .navbar-nav .nav-link.active {
     color: #4fc3f7 !important;
 }
-
 .navbar-nav .nav-link::after {
     content: '';
     position: absolute;
@@ -296,16 +223,13 @@ body.dark-header .navbar-nav .nav-link.active {
     transition: all 0.3s ease;
     transform: translateX(-50%);
 }
-
 body.dark-header .navbar-nav .nav-link::after {
     background-color: #4fc3f7;
 }
-
 .navbar-nav .nav-link:hover::after,
 .navbar-nav .nav-link.active::after {
     width: 80%;
 }
-
 .phone-link {
     color: #fff !important;
     text-decoration: none;
@@ -318,28 +242,20 @@ body.dark-header .navbar-nav .nav-link::after {
     white-space: nowrap;
     display: inline-block;
 }
-
 body.dark-header .phone-link {
     color: #f5f5f5 !important;
 }
-
 .phone-link:hover {
     color: #4fc3f7 !important;
 }
-
 body.dark-header .phone-link:hover {
     color: #4fc3f7 !important;
 }
-
 .main-content {
     margin-top: 60px;
     min-height: auto;
 }
-
-/* Mobile Navigation Enhancement */
-/* Mobile nav grid overrides (Bootstrap sm and below) */
 @media (max-width: 767.98px) {
-    /* Align brand left and toggler right */
     .navbar .container-md {
         display: flex;
         align-items: center;
@@ -348,31 +264,27 @@ body.dark-header .phone-link:hover {
     }
     .navbar-brand { order: 1; }
     .menu-toggle, .navbar-toggler { order: 2; margin-left: 0.5rem; }
-    /* Ensure collapse area has spacing and proper background on dark pages */
     .navbar-collapse {
         padding: 0.75rem 1rem;
     }
     body.dark-header .navbar-collapse {
         background-color: #1f1f1f;
     }
-    /* Use grid instead of flex for mobile nav (disabled when forcing desktop) */
     body:not(.force-desktop-layout) .navbar-nav {
         display: grid !important;
         grid-template-columns: 1fr;
         gap: 0.25rem;
         width: 100%;
-        justify-items: start; /* left-align items */
+        justify-items: start; 
     }
     .navbar-nav .nav-link {
-        padding: 0.9rem 1rem !important; /* bigger tap target */
+        padding: 0.9rem 1rem !important; 
         text-align: left;
     }
-    /* Align underline to the left on mobile */
     .navbar-nav .nav-link::after {
         left: 0;
         transform: none;
     }
-    /* Place phone CTA at the bottom with separator */
     .navbar-text {
         text-align: left;
         margin-top: 0.75rem;
@@ -383,24 +295,17 @@ body.dark-header .phone-link:hover {
 }
 @media (max-width: 767.98px) {
     .main-content { margin-top: 70px; }
-
-    /* Custom slide-in mobile menu */
     .mobile-menu { position: fixed; top: 0; left: 0; bottom: 0; width: 100vw; background: #1f1f1f; color: #f5f5f5; transform: translateX(-100%); opacity: 0; transition: transform 0.25s ease, opacity 0.25s ease; z-index: 1050; display: flex; flex-direction: column; }
     .mobile-menu.open { transform: translateX(0); opacity: 1; }
     .mobile-menu-header { display: flex; align-items: center; justify-content: space-between; padding: 0.75rem 1rem; position: relative; }
     .mobile-menu-header .navbar-brand img { height: 28px; }
     .menu-close { background: transparent; border: 0; color: #fff; font-size: 2rem; line-height: 2; position: absolute; top: 4px; right: 10px; padding: 0 5px; }
     .mobile-menu-body { display: flex; flex-direction: column; padding: 1rem 1.25rem; height: 100%; }
-
     .mobile-menu .navbar-nav .nav-link { font-size: 1.8rem; font-weight: 700; color: #f5f5f5 !important; padding: 0.4rem 0 !important; }
     .mobile-menu .navbar-nav .nav-link.active { color: #4fc3f7 !important; }
     .mobile-menu .btn-phone { display: inline-block; margin-top: 0.75rem; padding: 0.65rem 1rem; border: 1px solid rgba(255,255,255,0.35); border-radius: 999px; color: #fff !important; }
 .mobile-menu .btn-phone:hover { background: rgba(255,255,255,0.08); }
 }
-
-
-/* Removed duplicate - already defined above */
-
 .property-card {
     background: #fff;
     border-radius: 16px;
@@ -409,37 +314,29 @@ body.dark-header .phone-link:hover {
     height: 100%;
     width: 100%;
     display: block;
-    position: relative; /* needed for overlay info */
+    position: relative; 
 }
-
-/* Property card interactions */
 .property-card {
     cursor: pointer;
 }
-
 .property-card:hover {
     transform: translateY(-8px);
     box-shadow: 0 12px 15px rgba(0, 0, 0, 0.2);
 }
-
 .property-image {
     position: relative;
     overflow: hidden;
-    height: inherit; /* Use responsive heights defined above */
+    height: inherit; 
 }
-
 .property-image img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     transition: transform 0.3s ease;
 }
-
 .property-card:hover .property-image img {
     transform: scale(1.05);
 }
-
-/* Overlayed info similar to reference */
 .property-info {
     position: absolute;
     left: 0;
@@ -449,16 +346,13 @@ body.dark-header .phone-link:hover {
     color: #fff;
     background: linear-gradient(180deg, rgba(0,0,0,0.0) 0%, rgba(0,0,0,0.35) 25%, rgba(0,0,0,0.55) 100%);
 }
-
 .price-value,
 .address-value,
 .price-label,
 .address-label { color: #fff; }
-
 .property-price {
     margin-bottom: 1rem;
 }
-
 .price-label {
     font-size: 0.875rem;
     color: #666;
@@ -466,19 +360,15 @@ body.dark-header .phone-link:hover {
     letter-spacing: 0.5px;
     font-weight: 600;
 }
-
 .price-value {
     font-size: 1.5rem;
     font-weight: 700;
     color: #333;
     margin: 0.25rem 0 0 0;
 }
-
-/* Property card interactions */
 .property-address {
     margin-bottom: 1rem;
 }
-
 .address-label {
     font-size: 0.875rem;
     color: #666;
@@ -486,25 +376,21 @@ body.dark-header .phone-link:hover {
     letter-spacing: 0.5px;
     font-weight: 600;
 }
-
 .address-value {
     color: #555;
     margin: 0.25rem 0 0 0;
     line-height: 1.5;
 }
-
 .footer {
     background-color: #fff !important;
     padding: 1.25rem 0 1rem;
     margin-top: 2rem;
 }
-
 .footer-top {
     padding-bottom: 0.75rem;
     border-bottom: none;
     margin-bottom: 0.75rem;
 }
-
 .footer-contact p {
     color: #111;
     margin-bottom: 0.5rem;
@@ -516,33 +402,25 @@ body.dark-header .phone-link:hover {
     align-items: center;
     gap: 2rem;
 }
-
 .social-link {
     color: #666;
     text-decoration: none;
     font-weight: 500;
     transition: color 0.3s ease;
 }
-
 .social-link:hover {
     color: #007bff;
 }
-
 .footer-middle {
     text-align: left;
     padding: 0.5rem 0;
 }
-
-/* Let footer stretch edge-to-edge like the reference */
 .footer .container {
     max-width: 100% !important;
 }
-
-/* Keep center alignment on very small screens */
 @media (max-width: 575px) {
     .footer-middle { text-align: center; }
 }
-
 .footer-logo {
     font-size: clamp(2rem, 6vw, 2.5rem) !important;
     font-weight: 800;
@@ -550,46 +428,36 @@ body.dark-header .phone-link:hover {
     margin: 0;
     line-height: 0.85;
 }
-
-/* Responsive footer logo sizing */
 @media (max-width: 575px) {
     .footer-logo {
         font-size: clamp(1.25rem, 7vw, 1.75rem);
     }
 }
-
 .footer-bottom {
     padding-top: 0.75rem;
     border-top: none;
 }
-
 .footer-copyright {
     color: #666;
     font-size: 0.875rem;
 }
-
 .footer-link {
     color: #007bff;
     text-decoration: none;
     transition: color 0.3s ease;
 }
-
 .footer-link:hover {
     color: #0056b3;
 }
-
 .footer-legal {
     display: flex;
     justify-content: flex-end;
     align-items: center;
     gap: 1rem;
 }
-
 .property-detail-section {
     padding: 3rem 0;
 }
-
-/* Contact page map embed */
 .map-embed {
     border-radius: 16px;
     overflow: hidden;
@@ -597,7 +465,6 @@ body.dark-header .phone-link:hover {
     height: 480px; /* medium desktop height */
     width: 100%;
 }
-/* Tablet medium height */
 @media (max-width: 991px) {
     .map-embed { height: 380px; }
 }
@@ -610,7 +477,6 @@ body.dark-header .phone-link:hover {
 @media (max-width: 575px) {
     .map-embed { height: 300px; }
 }
-
 .property-detail-title {
     font-size: 3rem;
     font-weight: 700;
@@ -618,7 +484,6 @@ body.dark-header .phone-link:hover {
     margin-bottom: 2rem;
     color: #333;
 }
-
 .property-hero-image {
     width: 100%;
     max-width: 800px;
@@ -627,18 +492,15 @@ body.dark-header .phone-link:hover {
     overflow: hidden;
     box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
 }
-
 .property-hero-image img {
     width: 100%;
     height: auto;
     display: block;
     object-fit: cover;
 }
-
 .property-gallery {
     margin-bottom: 3rem;
 }
-
 .gallery-item {
     border-radius: 12px;
     overflow: hidden;
@@ -647,35 +509,29 @@ body.dark-header .phone-link:hover {
     height: 280px;
     margin-bottom: 1rem;
 }
-
 .gallery-item:hover {
     transform: translateY(-5px);
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
 }
-
 .gallery-item img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     transition: transform 0.3s ease;
 }
-
 .gallery-item:hover img {
     transform: scale(1.05);
 }
-
 @media (min-width: 1200px) {
     .gallery-item {
         height: 300px;
     }
 }
-
 @media (min-width: 992px) and (max-width: 1199px) {
     .gallery-item {
         height: 250px;
     }
 }
-
 .property-info-sidebar {
     background-color: #f8f9fa;
     padding: 2rem;
@@ -684,13 +540,11 @@ body.dark-header .phone-link:hover {
     position: sticky;
     top: 100px;
 }
-
 .property-detail-price {
     margin-bottom: 1.5rem;
     padding-bottom: 1.5rem;
     border-bottom: 1px solid #e9ecef;
 }
-
 .property-detail-price .price-label {
     font-size: 0.875rem;
     color: #666;
@@ -700,20 +554,17 @@ body.dark-header .phone-link:hover {
     margin-bottom: 0.5rem;
     display: block;
 }
-
 .property-detail-price .price-value {
     font-size: 2.5rem;
     font-weight: 700;
     color: #333;
     margin: 0;
 }
-
 .property-detail-address {
     margin-bottom: 2rem;
     padding-bottom: 2rem;
     border-bottom: 1px solid #e9ecef;
 }
-
 .property-detail-address .address-label {
     font-size: 0.875rem;
     color: #666;
@@ -723,20 +574,17 @@ body.dark-header .phone-link:hover {
     margin-bottom: 0.5rem;
     display: block;
 }
-
 .property-detail-address .address-value {
     color: #555;
     margin: 0;
     line-height: 1.6;
     font-size: 1.1rem;
 }
-
 .property-actions {
     display: flex;
     flex-direction: column;
     gap: 1rem;
 }
-
 .property-actions .btn {
     padding: 1rem 1.5rem;
     font-weight: 600;
@@ -746,36 +594,30 @@ body.dark-header .phone-link:hover {
     text-align: center;
     border: none;
 }
-
 .property-actions .btn-primary {
     background-color: #007bff;
     color: white;
 }
-
 .property-actions .btn-primary:hover {
     background-color: #0056b3;
     transform: translateY(-2px);
 }
-
 .property-actions .btn-outline-primary {
     border: 2px solid #007bff;
     color: #007bff;
     background-color: transparent;
 }
-
 .property-actions .btn-outline-primary:hover {
     background-color: #007bff;
     color: white;
     transform: translateY(-2px);
 }
-
 .property-description {
     background-color: #fff;
     padding: 2.5rem;
     border-radius: 12px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
 }
-
 .property-description .lead {
     font-size: 1.25rem;
     font-weight: 500;
@@ -783,14 +625,12 @@ body.dark-header .phone-link:hover {
     margin-bottom: 2rem;
     line-height: 1.7;
 }
-
 .property-description p {
     font-size: 1.1rem;
     line-height: 1.8;
     color: #666;
     margin-bottom: 1.5rem;
 }
-
 @media (max-width: 992px) {
     .property-detail-info {
         padding-left: 0;
@@ -800,21 +640,17 @@ body.dark-header .phone-link:hover {
     .property-detail-title {
         font-size: 2.5rem;
     }
-    
-    .property-detail-price .price-value {
+     .property-detail-price .price-value {
         font-size: 2rem;
     }
-    
     .property-info-sidebar {
         margin-top: 3rem;
         position: static;
     }
-    
-    .property-hero-image {
+     .property-hero-image {
         max-width: 100%;
     }
 }
-
 @media (max-width: 768px) {
     .property-detail-section {
         padding: 2rem 0;
@@ -824,120 +660,97 @@ body.dark-header .phone-link:hover {
         font-size: 2rem;
         margin-bottom: 1.5rem;
     }
-    
     .property-hero-image {
         margin-bottom: 2rem;
         border-radius: 12px;
     }
-    
     .property-gallery {
         margin-bottom: 2rem;
-    }
-    
+    } 
     .gallery-item {
         height: 220px;
         margin-bottom: 1rem;
         border-radius: 10px;
     }
-    
     .gallery-item:hover {
         transform: translateY(-3px);
     }
-    
     .property-description {
         padding: 1.5rem;
         margin-bottom: 2rem;
     }
-    
     .property-description .lead {
         font-size: 1.1rem;
         margin-bottom: 1.5rem;
     }
-    
     .property-description p {
         font-size: 1rem;
         line-height: 1.6;
         margin-bottom: 1.25rem;
     }
-    
     .property-info-sidebar {
         padding: 1.5rem;
         margin-top: 0;
-    }
-    
+    } 
     .property-detail-price .price-value {
         font-size: 1.75rem;
     }
-    
     .property-detail-address .address-value {
         font-size: 1rem;
-    }
-    
+    } 
     .property-actions {
         flex-direction: column;
         gap: 0.75rem;
     }
-    
     .property-actions .btn {
         width: 100%;
         text-align: center;
         padding: 0.875rem 1rem;
         font-size: 0.95rem;
     }
-    
     .row.mb-5 {
         margin-bottom: 2rem !important;
     }
 }
-
 @media (max-width: 576px) {
     .property-detail-section {
         padding: 1.5rem 0;
     }
-    
     .property-detail-title {
         font-size: 1.75rem;
         margin-bottom: 1rem;
         padding: 0 1rem;
     }
-    
     .property-hero-image {
         margin: 0 -15px 1.5rem -15px;
         border-radius: 0;
     }
-    
     .property-gallery {
         margin: 0 -15px 1.5rem -15px;
         padding: 0 15px;
     }
-    
     .gallery-item {
         height: 200px;
         border-radius: 8px;
         margin-bottom: 1rem;
     }
-    
     .gallery-item:hover {
         transform: translateY(-2px);
     }
-    
     .property-description {
         padding: 1rem;
         margin: 0 -15px 1.5rem -15px;
         border-radius: 0;
     }
-    
     .property-description .lead {
         font-size: 1rem;
         margin-bottom: 1rem;
-    }
-    
+    } 
     .property-description p {
         font-size: 0.95rem;
         line-height: 1.5;
         margin-bottom: 1rem;
     }
-    
     .property-info-sidebar {
         padding: 1rem;
         margin: 0 -15px;
@@ -945,78 +758,62 @@ body.dark-header .phone-link:hover {
         box-shadow: none;
         border-top: 1px solid #e9ecef;
     }
-    
     .property-detail-price .price-value {
         font-size: 1.5rem;
     }
-    
     .property-detail-address .address-value {
         font-size: 0.95rem;
-    }
-    
+    } 
     .property-actions .btn {
         padding: 1rem;
         font-size: 1rem;
         font-weight: 600;
-    }
-    
+    } 
     .btn-outline-secondary {
         margin: 0 1rem 1rem 1rem;
         font-size: 0.9rem;
         padding: 0.5rem 1rem;
     }
-    
     .container {
         padding-left: 15px;
         padding-right: 15px;
     }
-    
     .main-content {
         margin-top: 70px;
-    }
-    
+    } 
     .property-actions .btn {
         min-height: 48px;
         touch-action: manipulation;
     }
-    
     .property-description {
         text-align: left;
     }
-    
     .property-description .lead {
         text-align: left;
         font-weight: 500;
     }
 }
-
 @media (max-width: 320px) {
     .property-detail-title {
         font-size: 1.5rem;
     }
-    
-    .property-detail-price .price-value {
+      .property-detail-price .price-value {
         font-size: 1.25rem;
     }
-    
     .property-description {
         padding: 0.75rem;
     }
-    
-    .property-info-sidebar {
+     .property-info-sidebar {
         padding: 0.75rem;
     }
-    
     .property-gallery {
         padding: 0 10px;
     }
-    
-    .gallery-item {
+     .gallery-item {
         height: 160px;
         border-radius: 6px;
         margin-bottom: 0.75rem;
     }
-    
     .gallery-item:hover {
         transform: none;
     }
@@ -1045,160 +842,123 @@ body.dark-header .phone-link:hover {
         justify-content: flex-start;
         margin-top: 1rem;
     }
-    
     .footer-legal {
         justify-content: flex-start;
         margin-top: 1rem;
         flex-wrap: wrap;
     }
-    
     .footer-logo {
         font-size: 2rem;
     }
-    
     .page-title {
         font-size: 2rem;
     }
-    
     .properties-section {
         padding: 2rem 0;
     }
-    
-    .property-card {
+     .property-card {
         margin-bottom: 1.5rem;
     }
-    
     .main-content {
         padding-top: 90px;
     }
-    
-    .container {
+     .container {
         padding-left: 20px;
         padding-right: 20px;
     }
 }
-
 @media (max-width: 767px) {
     .footer-logo {
         font-size: 1.75rem;
     }
-    
-    .page-title {
+     .page-title {
         font-size: 1.75rem;
         margin-bottom: 2rem;
     }
-    
-    .property-card {
+     .property-card {
         margin-bottom: 2rem;
         max-width: 100%;
     }
-    
     .property-info {
         padding: 1.25rem;
     }
-    
     .price-value {
         font-size: 1.25rem;
     }
-    
-    .property-image {
+     .property-image {
         height: 240px;
     }
-    
     .container {
         padding-left: 15px;
         padding-right: 15px;
         max-width: 100%;
     }
-    
-    .main-content {
+      .main-content {
         padding-top: 100px;
     }
-    
-    .properties-section {
+      .properties-section {
         padding: 1.5rem 0 2.5rem;
     }
-    
     .navbar-nav {
         text-align: center;
         margin-top: 1rem;
     }
-    
     .navbar-nav .nav-link {
         padding: 0.75rem 1rem !important;
         margin: 0.25rem 0;
     }
-    
     .navbar-text {
         text-align: center;
         margin-top: 1rem;
     }
-    
-    .navbar-toggler {
+     .navbar-toggler {
         border: none;
         padding: 0.25rem 0.5rem;
     }
-    
     .navbar-toggler:focus {
         box-shadow: none;
     }
-    
-    .row.g-3 {
+     .row.g-3 {
         margin: 0 -0.75rem;
     }
-    
-    .row.g-3 > * {
+     .row.g-3 > * {
         padding: 0 0.75rem;
         margin-bottom: 1.5rem;
     }
-    
-    /* Let Bootstrap handle columns; no forced 100% width at md */
-    
     .row.g-3 .col-12 {
         flex-basis: 100% !important;
         max-width: 100% !important;
     }
 }
-
-/* Additional mobile-first approach */
 @media (max-width: 576px) {
     .property-image {
         height: 220px;
     }
-    
-    .page-title {
+     .page-title {
         font-size: 1.5rem;
     }
-    
     .container {
         padding-left: 10px;
         padding-right: 10px;
     }
-    
-    .properties-section {
+     .properties-section {
         padding: 1rem 0;
     }
-    
-    /* Keep single column on extra-small screens only for readability */
     .row > [class*="col-"] {
         flex: 0 0 100% !important;
         max-width: 100% !important;
         width: 100% !important;
         margin-bottom: 1rem;
-    }
-    
+    } 
     .row {
         margin-left: -5px !important;
         margin-right: -5px !important;
     }
-    
     .row > * {
         padding-left: 5px !important;
         padding-right: 5px !important;
     }
 }
-
-/* Ensure white text over images inside cards (override generic colors below) */
 .property-card .property-info .price-label,
 .property-card .property-info .address-label,
 .property-card .property-info .price-value,
@@ -1206,41 +966,31 @@ body.dark-header .phone-link:hover {
 	color: #fff !important;
 	text-shadow: 0 1px 2px rgba(0,0,0,0.35);
 }
-
-/* When the mobile menu is open (toggled via JS), make links dark on light background */
 body.menu-open .navbar-nav .nav-link,
 body.menu-open .phone-link { 
     color: #f5f5f5 !important; 
 }
-
 body.menu-open .navbar-nav .nav-link::after {
     background-color: #4fc3f7;
 }
-
-/* Explicit footer logo sizes to ensure correct scaling */
 @media (min-width: 768px) {
     .footer-logo {
-        font-size: 12rem !important; /* desktop/tablet */
+        font-size: 12rem !important; 
         line-height: 0.85;
     }
 }
 @media (max-width: 767.98px) {
     .footer-logo {
-        font-size: 2rem !important; /* mobile */
+        font-size: 2rem !important; 
         line-height: 0.85;
     }
 }
-
-/* ------------------------------
-   Mobile navbar: left toggle + modern animations
-   ------------------------------ */
-/* Replace default hamburger with custom animated one */
 .navbar-toggler-icon { 
-    background-image: none !important; /* remove Bootstrap bg */
+    background-image: none !important; 
     position: relative;
     width: 24px; 
     height: 2px; 
-    background-color: currentColor; /* middle bar */
+    background-color: currentColor; 
     transition: background-color 0.2s ease, transform 0.25s ease;
 }
 .navbar-toggler-icon::before,
@@ -1255,25 +1005,17 @@ body.menu-open .navbar-nav .nav-link::after {
 }
 .navbar-toggler-icon::before { top: -6px; }
 .navbar-toggler-icon::after  { top:  6px; }
-
-/* Colors for light/dark headers */
 .navbar-toggler { color: #111; }
 body.dark-header .navbar-toggler { color: #f5f5f5; }
-
-/* Animate into an X when menu is open */
 body.menu-open .navbar-toggler-icon { background-color: transparent; }
 body.menu-open .navbar-toggler-icon::before { transform: translateY(6px) rotate(45deg); }
 body.menu-open .navbar-toggler-icon::after  { transform: translateY(-6px) rotate(-45deg); }
-
-/* Position brand LEFT and toggle RIGHT on mobile */
 @media (max-width: 767.98px) {
   .navbar .container-md { display: flex; align-items: center; justify-content: space-between; }
   .navbar-brand   { order: 1; margin-right: auto; }
   .navbar-toggler { order: 2; margin-left: 0.5rem; border: none; padding: 0.5rem; }
   .navbar-collapse{ order: 3; width: 100%; }
 }
-
-/* Smooth collapse animation */
 @media (max-width: 767.98px) {
   .navbar-collapse { 
     transform: translateY(-8px); 
